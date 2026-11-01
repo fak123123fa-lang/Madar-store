@@ -176,6 +176,23 @@ body.hascta .wafab{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 .iosg .bx{background:var(--surface);color:var(--fg);border-radius:24px;padding:20px;max-width:380px;width:100%;display:grid;gap:12px}.iosg h3{margin:0;font-size:19px}
 .iosg ol{margin:0;padding-inline-start:20px;display:grid;gap:8px;font-size:15px}.iosg .ar{font-size:34px;text-align:center;color:#fff;animation:bnc 1s infinite}
 @keyframes bnc{50%{transform:translateY(8px)}}
+/* v7 brand layer */
+.hd{background:linear-gradient(180deg,#0B1E3C,#0F2A56)!important;border-bottom:2px solid var(--orange);border-radius:0 0 22px 22px;backdrop-filter:none!important;box-shadow:0 10px 24px -12px rgba(11,30,60,.6)}
+.hd .logo,.hd .logo b{color:#fff}.hd .logo small{color:#FFA13D}
+.hd .iconbtn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18);color:#fff}
+.hd .badge{background:var(--orange);color:#1a0e02}
+.announce{background:#06142B!important;color:#fff!important;border-bottom:1px solid rgba(255,122,0,.5)}
+.bar nav{background:linear-gradient(180deg,#12306A,#0B1E3C)!important;border:1px solid rgba(255,122,0,.35)!important}
+.cta .in{background:linear-gradient(135deg,#12306A,#0B1E3C)!important;border:1px solid rgba(255,122,0,.45)}
+.sec h2,h2.t{border-inline-start:4px solid var(--orange);padding-inline-start:10px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#071226;--surface:#0E2040;--line:#1E3358;--tint:#13294d;--orange:#FF7A00;--hero-a:#0B1E3C;--hero-b:#13408a}}
+:root[data-theme="dark"]{--bg:#071226;--surface:#0E2040;--line:#1E3358;--tint:#13294d;--orange:#FF7A00;--hero-a:#0B1E3C;--hero-b:#13408a}
+#splash{position:fixed;inset:0;z-index:999;display:grid;place-items:center;align-content:center;gap:10px;text-align:center;color:#fff;background:radial-gradient(60% 45% at 50% 42%,rgba(255,122,0,.3),transparent 70%),#081530;transition:opacity .5s,visibility .5s}
+#splash.out{opacity:0;visibility:hidden}
+#splash svg{width:132px;height:132px;animation:spl 1.2s ease-out both;filter:drop-shadow(0 14px 34px rgba(255,122,0,.45))}
+#splash b{font:800 26px 'Readex Pro',system-ui;letter-spacing:.35em;margin-inline-end:-.35em}
+#splash small{color:#FFA13D;font-weight:700;font-size:15px}
+@keyframes spl{0%{opacity:0;transform:scale(.6) rotate(-20deg)}100%{opacity:1;transform:none}}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -601,6 +618,7 @@ function isStandalone(){return (window.matchMedia&&matchMedia('(display-mode: st
 var iosG=false;function iosGuide(){return iosG?'<div class="iosg" data-act="iosx"><div class="bx"><h3>ثبّت مدار على الآيفون</h3><ol><li>اضغط زر المشاركة <b>⬆︎</b> أسفل Safari</li><li>اختر «إضافة إلى الشاشة الرئيسية»</li><li>اضغط «إضافة» وسيظهر التطبيق بين تطبيقاتك</li></ol></div><div class="ar">⬇</div></div>':''}
 function installFab(){if(isStandalone()||LS.get('nofab',0))return '';return '<div class="ifab"><button data-act="install" aria-label="ثبّت التطبيق"><i class="ifi">'+ORBIT+'</i><span>ثبّت<br>التطبيق</span></button><button class="ix" data-act="nofab" aria-label="إخفاء">×</button></div>'}
 POL.install={ar:['ثبّت التطبيق',['على الأندرويد: افتح قائمة المتصفح (⋮) ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».','على الآيفون: افتح الموقع في Safari، اضغط زر المشاركة (المربع والسهم) ثم «إضافة إلى الشاشة الرئيسية».','بعد التثبيت يظهر المتجر كتطبيق على هاتفك ويفتح مباشرة.']],en:['Install the app',['Android: open the browser menu (⋮) then choose "Install app" or "Add to Home screen".','iPhone: open the site in Safari, tap Share then "Add to Home Screen".','After installing, the store opens like an app from your home screen.']]};
+(function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=ORBIT.replace('width="38" height="38"','width="132" height="132"')+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
 })();
