@@ -573,7 +573,7 @@ function heroBlock(){var s=S.store,L=(s.heroImgs&&s.heroImgs.length)?s.heroImgs.
 var hTimer=null;
 function startHero(){clearInterval(hTimer);var r=document.getElementById('hrail');if(!r||r.children.length<2)return;var i=0;
  r.onscroll=function(){var w=r.children[0].offsetWidth+10,k=Math.round(Math.abs(r.scrollLeft)/w);var d=document.querySelectorAll('#hdots i');for(var j=0;j<d.length;j++)d[j].className=j===k?'on':'';i=k};
- hTimer=setInterval(function(){var rr=document.getElementById('hrail');if(!rr){clearInterval(hTimer);return}i=(i+1)%rr.children.length;rr.children[i].scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},4200)}
+ hTimer=setInterval(function(){var rr=document.getElementById('hrail');if(!rr){clearInterval(hTimer);return}var rb=rr.getBoundingClientRect();if(rb.bottom<0||rb.top>innerHeight)return;i=(i+1)%rr.children.length;var cb=rr.children[i].getBoundingClientRect();rr.scrollBy({left:(cb.left+cb.width/2)-(rb.left+rb.width/2),behavior:'smooth'})},4200)}
 function brandStrip(){var L=live(),bl=S.brands.filter(function(b){return L.some(function(p){return p.brand===b.name})});if(!bl.length)return '';
  return head('الشركات والعلامات')+'<div class="brands">'+bl.map(function(b){var h=0;for(var i=0;i<b.name.length;i++)h=(h*31+b.name.charCodeAt(i))%360;return '<button class="bd" data-act="brand" data-id="'+esc(b.name)+'"><i style="background:hsl('+h+' 55% 92%);color:hsl('+h+' 55% 30%)">'+esc(b.name.charAt(0).toUpperCase())+'</i><b>'+esc(b.name)+'</b>'+(b.agency?'<small>وكيل معتمد</small>':'')+'</button>'}).join('')+'</div>'}
 function catCard(c,sid){var n=live().filter(function(p){return p.cat===c.id}).length,h=HUEMAP[c.id]||200;
