@@ -161,6 +161,7 @@ textarea.out{width:100%;min-height:130px;border:1px solid var(--line);border-rad
 .ifi{width:34px;height:34px;border-radius:10px;background:#0f2a4a;display:grid;place-items:center;flex:none}.ifi svg{width:24px;height:24px}.hgo svg{width:16px;height:16px;position:static}.ifab .ix{position:absolute;top:-8px;inset-inline-start:-4px;width:20px;height:20px;border-radius:50%;background:var(--pri);color:#fff;font-size:13px;line-height:1;display:grid;place-items:center}
 body.hascta .wafab{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 .wafab{bottom:calc(env(safe-area-inset-bottom,0px) + 96px)!important}
+.pill.hot{background:var(--orange);color:#1a0e02;font-weight:700}.pill.hot.nw{background:#16a34a;color:#fff}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -366,7 +367,7 @@ window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();ins
 /* ---- pieces ---- */
 function card(p){var o=off(p),fv=favs.indexOf(p.id)>=0,b=brandOf(p.brand);
  return '<div class="card"><div class="pic" style="--h:'+hueOf(p)+'"><button class="pic" style="position:absolute;inset:0;border:0;background:none;border-radius:0" data-act="open" data-id="'+p.id+'" aria-label="'+esc(p.name)+'">'+pic(p)+'</button>'+
- '<button class="fav" data-act="fav" data-id="'+p.id+'" aria-pressed="'+fv+'" aria-label="المفضلة">'+ic('favs',18)+'</button>'+(o?'<span class="pill off num">-'+o+'%</span>':'')+
+ '<button class="fav" data-act="fav" data-id="'+p.id+'" aria-pressed="'+fv+'" aria-label="المفضلة">'+ic('favs',18)+'</button>'+(o?'<span class="pill off num">-'+o+'%</span>':'')+(!o&&p.best?'<span class="pill hot">الأكثر مبيعاً</span>':(!o&&p.isNew?'<span class="pill hot nw">جديد</span>':''))+
  (p.stock>0&&p.stock<=5?'<span class="pill low">باقي '+p.stock+'</span>':'')+(p.stock<=0?'<span class="pill low">نفد</span>':'')+'</div>'+
  '<div class="cb"><span class="cn">'+esc(p.brand||(storeById(p.store)||{}).name||'')+'</span><button class="nm" data-act="open" data-id="'+p.id+'">'+esc(p.name)+'</button>'+
  '<div class="pr">'+(p.old>p.price?'<span class="old num">'+fmt(p.old)+'</span>':'')+iqd(p.price)+'</div><button class="addb" data-act="add" data-id="'+p.id+'" aria-label="أضف للسلة"'+(p.stock>0?'':' disabled')+'>'+ic('plus',20)+'</button></div></div>'}
