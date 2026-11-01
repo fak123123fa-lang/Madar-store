@@ -162,6 +162,20 @@ textarea.out{width:100%;min-height:130px;border:1px solid var(--line);border-rad
 body.hascta .wafab{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
 .wafab{bottom:calc(env(safe-area-inset-bottom,0px) + 96px)!important}
 .pill.hot{background:var(--orange);color:#1a0e02;font-weight:700}.pill.hot.nw{background:#16a34a;color:#fff}
+/* v6 rect pics + buy colors */
+.pic{aspect-ratio:4/5!important;border-radius:16px!important}
+.pic .art{inset:7% 9% 4%!important;width:82%!important;height:88%!important}
+.pic img.photo{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important}
+.line .pic,.arow .pic{aspect-ratio:1/1!important;border-radius:12px!important}
+.addb{background:var(--orange)!important;color:#1a0e02!important;width:42px;height:42px;border-radius:14px;box-shadow:0 6px 14px rgba(232,121,26,.35);transition:transform .15s}.addb:active{transform:scale(.88)}
+.pill.off{background:#D6322B!important;color:#fff!important;font-weight:700}
+.pr{color:var(--pri);font-size:16px}.pr .old{color:var(--muted);text-decoration:line-through;font-weight:400;font-size:12px;margin-inline-end:6px}
+.cta .go{background:var(--ok)!important;color:#fff!important}
+.trust div{color:var(--ok)}
+.iosg{position:fixed;inset:0;z-index:80;background:rgba(8,18,34,.72);display:grid;align-content:end;justify-items:center;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px))}
+.iosg .bx{background:var(--surface);color:var(--fg);border-radius:24px;padding:20px;max-width:380px;width:100%;display:grid;gap:12px}.iosg h3{margin:0;font-size:19px}
+.iosg ol{margin:0;padding-inline-start:20px;display:grid;gap:8px;font-size:15px}.iosg .ar{font-size:34px;text-align:center;color:#fff;animation:bnc 1s infinite}
+@keyframes bnc{50%{transform:translateY(8px)}}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -362,7 +376,7 @@ function extraHTML(p){var h='';if(!(p.images&&p.images.length))h+='<div class="n
 function crossSell(){var L=lines();if(!L.length)return '';var inC={},stores={};L.forEach(function(x){inC[x.p.id]=1;stores[x.p.store]=1});var l=live().filter(function(p){return !inC[p.id]&&p.stock>0}).map(function(p){return{p:p,sc:(stores[p.store]?2:0)+(p.best?2:0)+(off(p)?1:0)}}).sort(function(a,b){return b.sc-a.sc}).slice(0,6).map(function(x){return x.p});
  return l.length?head('قد يعجبك أيضاً','')+rail(l):''}
 function installBtn(){return installEvt?'<button class="rrow" style="margin-top:4px" data-act="install"><span>تثبيت التطبيق على هاتفك</span>'+ic('plus',18)+'</button>':''}
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();installEvt=e});
+window.addEventListener('appinstalled',function(){LS.set('nofab',1);installEvt=null;render()});window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();installEvt=e});
 
 /* ---- pieces ---- */
 function card(p){var o=off(p),fv=favs.indexOf(p.id)>=0,b=brandOf(p.brand);
@@ -461,7 +475,7 @@ function sheetHTML(){if(!sheet&&!form)return '';var b;if(form)b=sheetForm();else
  return '<div class="over" data-act="ov"><div class="sheet" role="dialog" aria-modal="true">'+b+'</div></div>'}
 function nav(r){var cur=r==='store'||r==='business'?'cats':r==='admin'?'account':r;return '<div class="bar"><nav aria-label="التنقل">'+['home','cats','favs','orders','account'].map(function(k){return '<a href="#'+k+'"'+(cur===k?' aria-current="page"':'')+'><span class="ib">'+ic(k,22)+'</span>'+LABEL[k]+'</a>'}).join('')+'</nav></div>'}
 function render(){if(loading||loadErr){$('#app').innerHTML=loading?'<div class="empty" style="padding-top:120px">'+ORBIT+'جاري التحميل...</div>':'<div class="empty" style="padding-top:120px">تعذر الاتصال بالمتجر<button class="btn" data-act="retry">إعادة المحاولة</button><span class="note">'+esc(loadErr)+'</span></div>';tr($('#app'));return}var r=route();if(r==='store'&&curStore===null){curStore='all'}var v={home:vHome,cats:vCats,store:vStore,favs:vFavs,orders:vOrders,account:vAccount,cart:vCart,business:vBusiness,admin:vAdmin,policy:vPolicy}[r]();var cta=ctaBar();
- document.body.classList.toggle('hascta',!!cta);$('#app').innerHTML=DEFS+v+cta+waFab()+installFab()+nav(r)+sheetHTML()+'<div class="toast" id="toast" aria-live="polite"></div>';tr($('#app'));bump=false;if(r==='home')startHero()}
+ document.body.classList.toggle('hascta',!!cta);$('#app').innerHTML=DEFS+v+cta+waFab()+installFab()+iosGuide()+nav(r)+sheetHTML()+'<div class="toast" id="toast" aria-live="polite"></div>';tr($('#app'));bump=false;if(r==='home')startHero()}
 function keep(){var s=$('.sbody'),y=s?s.scrollTop:0;render();s=$('.sbody');if(s)s.scrollTop=y}
 /* ---- forms & actions ---- */
 function readForm(){if(!form||!$('#e_name'))return;var g=function(i){return $('#'+i)};form.name=g('e_name').value;form.store=g('e_store').value;form.cat=g('e_cat').value;form.brand=g('e_brand').value;form.size=g('e_size').value;form.price=+g('e_price').value||0;form.old=+g('e_old').value||0;form.stock=+g('e_stock').value||0;form.desc=g('e_desc').value;form.specs=g('e_specs').value;form.warranty=g('e_warranty').value;form.usage=g('e_usage').value;form.ingredients=g('e_ing').value;form.active=g('e_active').checked;form.isNew=g('e_new').checked;form.best=g('e_best').checked}
@@ -490,7 +504,8 @@ function act(a,t,el,e){var id=t.id;
  else if(a==='fq2'){sheet.a2=+id;sheet.step=3;render()}
  else if(a==='share'){var sp=prod(id),su=location.href.split('#')[0];if(navigator.share){navigator.share({title:sp.name,url:su}).catch(function(){})}else{window.open('https://wa.me/?text='+encodeURIComponent(sp.name+' '+su),'_blank')}}
  else if(a==='alert'){var ap=($('#al_ph').value||'').trim(),ae=$('#al_err');if(!/^(\+?964|0)?7\d{9}$/.test(ap.replace(/[\s-]/g,'')))return ae.textContent='اكتب رقم هاتف عراقي صحيح';if(LIVE)api('rpc/add_stock_alert',{method:'POST',body:{p_product:id,p_phone:ap}}).then(function(){toast('سجّلنا طلبك وسنتواصل معك');sheet=null;render()}).catch(function(x){ae.textContent=x.message;tr(ae)});else{toast('سجّلنا طلبك (تجريبي)');sheet=null;render()}}
- else if(a==='install'){if(installEvt){installEvt.prompt();installEvt=null;render()}else{polSec='install';location.hash='#policy';render()}}
+ else if(a==='install'){if(installEvt){installEvt.prompt();installEvt=null;render()}else if(/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1)){iosG=true;render()}else{polSec='install';location.hash='#policy';render()}}
+ else if(a==='iosx'){iosG=false;render()}
  else if(a==='nofab'){LS.set('nofab',1);render()}
  else if(a==='track'){var tn=($('#t_no').value||'').trim().toUpperCase(),tp=($('#t_phone').value||'').trim();if(!tn||!tp)return toast('اكتب رقم الطلب والهاتف');trackOrder(tn,tp)}
  else if(a==='refresh'){trackOrder(id,cust.phone)}
@@ -583,6 +598,7 @@ function vCats(){return header()+'<div class="wrap"><div class="sh" style="margi
  '<div class="sh"><h2 style="font-size:17px">قريباً</h2></div><div class="chips">'+S.stores.filter(function(s){return !s.live}).map(function(s){return '<span class="chip" style="opacity:.7">'+esc(s.name)+'</span>'}).join('')+'</div></div>'}
 function nav(r){var cur=r==='store'||r==='business'?'cats':r==='admin'?'account':r;return '<div class="bar"><nav aria-label="التنقل">'+['home','cats','favs','orders','account'].map(function(k){var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+'><span class="ib">'+ic(k,on?24:22)+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'}
 function isStandalone(){return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true}
+var iosG=false;function iosGuide(){return iosG?'<div class="iosg" data-act="iosx"><div class="bx"><h3>ثبّت مدار على الآيفون</h3><ol><li>اضغط زر المشاركة <b>⬆︎</b> أسفل Safari</li><li>اختر «إضافة إلى الشاشة الرئيسية»</li><li>اضغط «إضافة» وسيظهر التطبيق بين تطبيقاتك</li></ol></div><div class="ar">⬇</div></div>':''}
 function installFab(){if(isStandalone()||LS.get('nofab',0))return '';return '<div class="ifab"><button data-act="install" aria-label="ثبّت التطبيق"><i class="ifi">'+ORBIT+'</i><span>ثبّت<br>التطبيق</span></button><button class="ix" data-act="nofab" aria-label="إخفاء">×</button></div>'}
 POL.install={ar:['ثبّت التطبيق',['على الأندرويد: افتح قائمة المتصفح (⋮) ثم اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».','على الآيفون: افتح الموقع في Safari، اضغط زر المشاركة (المربع والسهم) ثم «إضافة إلى الشاشة الرئيسية».','بعد التثبيت يظهر المتجر كتطبيق على هاتفك ويفتح مباشرة.']],en:['Install the app',['Android: open the browser menu (⋮) then choose "Install app" or "Add to Home screen".','iPhone: open the site in Safari, tap Share then "Add to Home Screen".','After installing, the store opens like an app from your home screen.']]};
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
