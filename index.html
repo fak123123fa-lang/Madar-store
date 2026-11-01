@@ -393,6 +393,21 @@ svg.art{filter:url(#gl3d) drop-shadow(0 3px 3px rgba(0,0,0,.18))}
 .polh{margin:16px 0 6px;font-size:16px;color:var(--pri);border-inline-start:4px solid var(--orange);padding-inline-start:9px}.polp{margin:0 0 8px;line-height:1.95;font-size:14.5px}
 .pol .polp,.pol p{border:0!important;background:none!important;padding:0!important;border-radius:0!important;box-shadow:none!important}.pol .polp::before,.pol p::before{content:none!important}
 .stc.soon .sbadge{background:linear-gradient(145deg,#7f95b8,#5b7399)!important}
+/* v19 */
+.sbadge{background:linear-gradient(145deg,color-mix(in srgb,var(--c,#173d78) 78%,#fff),var(--c,#0B1E3C))!important;box-shadow:0 8px 14px -8px var(--c,#0B1E3C)!important}
+.stc b{color:color-mix(in srgb,var(--c,#0B1E3C) 72%,#000)!important}
+.stc.soon .sbadge{background:linear-gradient(145deg,color-mix(in srgb,var(--c) 78%,#fff),var(--c))!important;opacity:.88}
+.stc.soon b{color:var(--muted)!important}
+.bw{flex:none;min-width:132px;max-width:190px;min-height:84px;border:0;border-radius:20px;padding:12px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;text-align:start;color:#fff;background:linear-gradient(140deg,hsl(var(--bh) 72% 46%),hsl(calc(var(--bh) + 28) 78% 30%));box-shadow:0 10px 18px -12px hsl(var(--bh) 80% 25%/.9);position:relative;overflow:hidden}
+.bw::after{content:"";position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.22),transparent 45%);pointer-events:none}
+.bwn{font-weight:900;letter-spacing:.01em;line-height:1.1;word-break:break-word;font-family:'Readex Pro',system-ui,sans-serif}
+.bwf{font-size:11px;font-weight:700;opacity:.92;display:flex;gap:5px;align-items:center}.bwf i{font-style:normal;background:#fff;color:#16A34A;width:16px;height:16px;border-radius:50%;display:inline-grid;place-items:center;font-size:10px}
+.infop{display:grid;gap:12px;margin-top:22px}.ip{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:14px}
+.ip h3{margin:0 0 10px;font-size:15.5px;display:flex;gap:8px;align-items:center;color:var(--pri)}
+.govg{display:grid;grid-template-columns:1fr 1fr;gap:6px}.govg>div{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:11px;background:var(--bg);font-size:13px}.govg>div.hg{background:#E8F6EE;outline:1px solid #b7e2c8}.govg em{font-style:normal;font-weight:700;color:var(--pri);font-size:12.5px}.fr{color:var(--ok)}
+.ipn{margin:10px 0 0;font-size:12.5px;color:var(--muted);line-height:1.7}
+.pays{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pay{border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:10px;text-align:start;display:grid;gap:2px;color:var(--fg)}.pay b{font-size:13.5px}.pay small{color:var(--muted);font-size:11.5px}.pay.on{background:#E8F6EE;border-color:#b7e2c8}.pay.on small{color:var(--ok)}
+.cts{display:flex;gap:8px;flex-wrap:wrap}.ct{flex:1;min-width:96px;border:0;border-radius:14px;padding:12px;font-weight:700;text-align:center;text-decoration:none;display:inline-flex;gap:6px;align-items:center;justify-content:center;background:var(--tint);color:var(--pri)}.ct.main{background:var(--pri);color:#fff;flex:2 1 180px}.ct.wa{background:#25D366;color:#fff}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1135,9 +1150,9 @@ waFab=function(){return '<div class="fabs"><button class="chfab" data-act="chat"
 document.addEventListener('keydown',function(e){if(e.target&&e.target.id==='chq'&&e.key==='Enter'){e.preventDefault();chSend()}});
 /* ---- صورة داخل مدار الذكي ---- */
 function aiImgFile(file){if(!file||AI.typing)return;var u=URL.createObjectURL(file),im=new Image();AI.typing=true;
- im.onload=function(){var s=Math.min(1,320/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(8,Math.round(im.width*s));c.height=Math.max(8,Math.round(im.height*s));c.getContext('2d').drawImage(im,0,0,c.width,c.height);var du=c.toDataURL('image/jpeg',.7),t=document.createElement('canvas');t.width=t.height=48;t.getContext('2d').drawImage(im,0,0,48,48);URL.revokeObjectURL(u);AI.feat=feat(t);AI.msgs.push({r:'u',img:du});keep();aiScroll();aiImgRun('')};
+ im.onload=function(){var s=Math.min(1,320/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(8,Math.round(im.width*s));c.height=Math.max(8,Math.round(im.height*s));c.getContext('2d').drawImage(im,0,0,c.width,c.height);var du=c.toDataURL('image/jpeg',.7),t=document.createElement('canvas');t.width=t.height=48;t.getContext('2d').drawImage(im,0,0,48,48);URL.revokeObjectURL(u);AI.feat=feat(t);AI.canvas=c;AI.labels=undefined;AI.msgs.push({r:'u',img:du});keep();aiScroll();aiImgRun('')};
  im.onerror=function(){AI.typing=false;toast('تعذر قراءة الصورة')};im.src=u}
-function aiImgRun(txt){var words=nrm(txt).split(/\s+/).filter(function(t){return t&&STOP.indexOf(t)<0}).map(stem).filter(function(t){return t.length>=2}),groups=words.length?expand(words):[],pool=live().filter(function(p){return p.stock>0}).slice(0,200);
+function aiImgRun(txt){var words=nrm(txt+' '+labelWords(AI.labels||[])).split(/\s+/).filter(function(t){return t&&STOP.indexOf(t)<0}).map(stem).filter(function(t){return t.length>=2}),groups=words.length?expand(words):[],pool=live().filter(function(p){return p.stock>0}).slice(0,200);
  Promise.all(pool.map(loadPF)).then(function(fs){var out=pool.map(function(p,i){var sc=groups.length?scoreP(p,groups,[]):{hit:0,core:0},cs=AI.feat?simF(AI.feat,fs[i]):0;return{p:p,txt:sc.hit>0,v:(groups.length?Math.min(sc.core,9)/9*.65:0)+cs*(groups.length?.35:1),c:cs}});
   var hasT=out.some(function(x){return x.txt});out=groups.length&&hasT?out.filter(function(x){return x.txt}):out.filter(function(x){return x.c>.62});out.sort(function(a,b){return b.v-a.v});var L=out.slice(0,3).map(function(x){return x.p}),h;
   if(L.length){var tg=tagFor(L);h='لقيت لك هاي الأقرب لصورتك'+(groups.length?' ووصفك':' (بالألوان والشكل العام)')+':'+L.map(function(p){return aiPick(p,tg[p.id],L)}).join('')+'<div class="aihint">للدقة أكثر اكتب لي شنو هذا المنتج (مثلاً: شنطة يد سودة) وأعيد البحث.</div>';AI.imgWait=!groups.length}
@@ -1245,6 +1260,55 @@ vPolicy=function(){var d=POL[polSec]||POL.about,x=d[lang==='en'?'en':'ar'],paras
  if(polSec==='returns'&&paras[0]===null)paras[0]=lang==='en'?(S.store.returnPolicy_en||'Return and exchange conditions are set by the store.'):S.store.returnPolicy;
  var body=paras.map(function(t){t=String(t).split('{{wa}}').join(wa);return t.indexOf('## ')===0?'<h3 class="polh">'+esc(t.slice(3))+'</h3>':'<p class="polp">'+esc(t)+'</p>'}).join('');
  return header()+'<div class="wrap"><div class="sh" style="margin-top:14px"><h2>'+(lang==='en'?'Policies':'السياسات')+'</h2></div><div class="chips">'+[['about','من نحن'],['returns','الاستبدال والإرجاع'],['privacy','سياسة الخصوصية'],['terms','شروط الاستخدام']].map(function(c){return '<button class="chip" data-act="pol" data-id="'+c[0]+'" aria-pressed="'+(polSec===c[0])+'">'+c[1]+'</button>'}).join('')+'</div><div class="panel nt pol" style="margin-top:12px"><h2 style="margin-bottom:10px">'+esc(x[0])+'</h2>'+body+'</div></div>'};
+
+/* ================= v19: ألوان المتاجر · علامات بارزة · معلومات التوصيل والدفع · تعرّف تلقائي · مساعد أذكى ================= */
+var STC={beauty:'#E11D74',elec:'#2563EB',office:'#F59E0B',home:'#0D9488',kids:'#F97316',fashion:'#7C3AED',fresh:'#16A34A',health:'#DC2626',auto:'#334155',sports:'#0891B2',gifts:'#C026D3',pets:'#A16207',tools:'#65A30D',books:'#4F46E5',biz:'#0B1E3C'};
+function stColor(s){return STC[s.id]||('hsl('+(s.hue||215)+' 70% 42%)')}
+storeTile=function(s,kind){var en=(lang==='en'?'':(s.en_short||s.en_name||s.en||'')).toUpperCase(),nm=esc(s.short||s.name),
+ inner='<span class="sbadge">'+(s.image?'<img src="'+esc(s.image)+'" alt="">':glyph(s.id,27))+'</span><b>'+nm+'</b>'+(en?'<em>'+esc(en)+'</em>':'')+(kind==='soon'?'<span class="sooni">قريباً</span>':''),st=' style="--c:'+stColor(s)+'"';
+ if(kind==='soon')return '<button class="stc soon" data-act="store" data-id="'+s.id+'"'+st+'>'+inner+'</button>';
+ if(kind==='biz')return '<a class="stc" href="#business"'+st+'>'+inner+'</a>';
+ return '<button class="stc" data-act="store" data-id="'+s.id+'"'+st+'>'+inner+'</button>'};
+/* ---- العلامات التجارية: اسم الشركة بارز ---- */
+brandStrip=function(){var L=live(),bl=S.brands.filter(function(b){return L.some(function(p){return p.brand===b.name})});if(!bl.length)return '';
+ return '<div class="secbar br"><h2>الشركات والعلامات</h2><span class="tg">BRANDS</span></div><div class="brands">'+bl.map(function(b){var h=0;for(var i=0;i<b.name.length;i++)h=(h*31+b.name.charCodeAt(i))%360;var n=L.filter(function(p){return p.brand===b.name}).length,len=b.name.length,fs=len<=7?24:len<=11?19:len<=16?15:13;
+  return '<button class="bw" data-act="brand" data-id="'+esc(b.name)+'" style="--bh:'+h+'"><span class="bwn" style="font-size:'+fs+'px">'+esc(b.name)+'</span><span class="bwf">'+(b.agency?'<i>✓</i> وكيل معتمد':'<span class="num">'+n+'</span> منتج')+'</span></button>'}).join('')+'</div>'};
+/* ---- التوصيل والدفع والتواصل ---- */
+function infoPanel(){var s=S.store,fl=s.feeLocal,fo=s.feeOther,hg=s.homeGov,wa=waNum(),ph=String(s.phone||'').replace(/[^\d+]/g,'');
+ function fee(g){var f=g===hg?fl:fo;return f>0?iqd(f):'<b class="fr">مجاني</b>'}
+ return '<div class="infop"><div class="ip"><h3>'+ic('truck',20)+'التوصيل إلى المحافظات</h3><div class="govg">'+GOV.map(function(g){return '<div'+(g===hg?' class="hg"':'')+'><span>'+g+'</span><em>'+fee(g)+'</em></div>'}).join('')+'</div>'+(s.freeFrom>0?'<p class="ipn">توصيل مجاني للطلبات من '+iqd(s.freeFrom)+' فأكثر.</p>':'')+'</div>'+
+ '<div class="ip"><h3>'+ic('cash',20)+'طرق الدفع</h3><div class="pays"><div class="pay on"><b>الدفع عند الاستلام</b><small>متاح لكل الطلبات</small></div>'+['زين كاش','سوبر كي','ماستر كارد'].map(function(x){return '<button class="pay" data-act="paychat" data-id="'+x+'"><b>'+x+'</b><small>بالتنسيق مع المبيعات</small></button>'}).join('')+'</div><p class="ipn">الدفع الإلكتروني يتم بعد تأكيد طلبك مع فريق المبيعات. اضغط على الطريقة لتتحدث معهم مباشرة.</p></div>'+
+ '<div class="ip"><h3>'+ic('chat',20)+'تواصل مباشر مع المتجر</h3><div class="cts"><button class="ct main" data-act="chat">'+ic('chat',20)+'محادثة مع المبيعات</button><a class="ct wa" target="_blank" rel="noopener" href="https://wa.me/'+wa+'">واتساب</a>'+(ph?'<a class="ct" href="tel:'+esc(ph)+'">اتصال</a>':'')+'</div></div></div>'}
+var _fh=footerHTML;footerHTML=function(){return infoPanel()+_fh()};
+Object.assign(window.MYA,{paychat:function(t){chOpen('أريد الدفع عبر '+t.id+' لطلبي')}});
+var _chOpen=chOpen;chOpen=function(pre){_chOpen();if(typeof pre==='string'&&pre){var i=$('#chq');if(i)i.value=pre}};
+MYA.chat=function(){chOpen()};
+/* ---- تعرّف تلقائي على الصورة ---- */
+var MN=null;
+function mnLoad(){if(MN)return MN;MN=(window.tf&&window.mobilenet?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js').then(function(){return loadScript('https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.1/dist/mobilenet.min.js')})).then(function(){return window.mobilenet.load({version:2,alpha:0.5})});MN.catch(function(){MN=null});return MN}
+function mnPre(){try{var c=navigator.connection;if(c&&c.saveData)return;mnLoad().catch(function(){})}catch(e){}}
+function classify(cv){return Promise.race([mnLoad().then(function(m){return m.classify(cv,5)}).then(function(p){return p.filter(function(x){return x.probability>.07}).map(function(x){return x.className})}),new Promise(function(r){setTimeout(function(){r([])},25000)})]).catch(function(){return[]})}
+function labelWords(labels){var o=[];labels.forEach(function(l){IMGMAP.forEach(function(m){if(m[0].test(l))o.push(m[1])})});return o.join(' ')}
+IMGMAP.push([/shirt|tee|blouse|skirt|trouser|pant|sock|scarf|hijab|veil|stole/i,'قميص ملابس بنطلون'],[/lipstick|nail|rouge|mascara|blush/i,'مكياج روج'],[/soap|shampoo|toothpaste|razor|towel|cream|bottle|dispenser/i,'كريم شامبو عنايه'],[/charger|cable|plug|adapter|battery|power/i,'شاحن كيبل باور'],[/pen\b|pencil|notebook|binder|envelope|paper|ruler|eraser/i,'قلم دفتر ورق'],[/apple|banana|orange|lemon|fruit|vegetable|bread|pizza|cheese|egg|fish|meat/i,'فواكه خضار طعام'],[/car\b|wheel|tire|truck|jeep|sports car|convertible/i,'سياره'],[/ball|racket|dumbbell|barbell|bicycle|helmet/i,'رياضه كره'],[/book|comic|library|notebook/i,'كتاب'],[/dog|cat|bird|fish\b|hamster|leash|collar/i,'حيوان اليف قطه']);
+var _imgM=imgMatch;imgMatch=function(){if(IMG.canvas&&!IMG.labels.length&&!IMG.triedAI){IMG.triedAI=true;IMG.busy=true;IMG.msg='جاري التعرّف على الصورة…';keep();classify(IMG.canvas).then(function(l){IMG.labels=l;IMG.aiOn=l.length>0;if(!l.length)IMG.note='تعذر التعرّف التلقائي (يحتاج إنترنت). النتائج حسب الألوان، وأضف وصفاً لدقة أعلى.';_imgM()})}else _imgM()};
+var _imgR=imgRead;imgRead=function(f){IMG.triedAI=false;IMG.note='';_imgR(f)};
+var _air=aiImgRun;aiImgRun=function(txt){if(AI.canvas&&AI.labels===undefined){AI.labels=null;classify(AI.canvas).then(function(l){AI.labels=l;_air(txt)})}else _air(txt)};
+var _MYA_ai=MYA.ai,_MYA_imgs=MYA.imgs;MYA.ai=function(){mnPre();_MYA_ai.apply(this,arguments)};MYA.imgs=function(){mnPre();_MYA_imgs.apply(this,arguments)};
+/* ---- مساعد أذكى: أسئلة المتجر + تصحيح الأخطاء الإملائية ---- */
+function lev(a,b){if(Math.abs(a.length-b.length)>1)return 9;var m=a.length,n=b.length,d=[],i,j;for(i=0;i<=m;i++){d[i]=[i]}for(j=1;j<=n;j++)d[0][j]=j;for(i=1;i<=m;i++)for(j=1;j<=n;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[m][n]}
+var VOC=null,VOCN=-1;function vocab(){if(VOC&&VOCN===S.products.length)return VOC;var o={};S.products.forEach(function(p){nrm([p.name,p.brand,catName(p.cat)].join(' ')).split(/[^؀-ۿa-z0-9]+/).forEach(function(w){w=stem(w);if(w.length>=4)o[w]=1})});VOC=Object.keys(o);VOCN=S.products.length;return VOC}
+var _exp=expand;expand=function(arr){var g=_exp(arr);return g.map(function(grp){var t=grp[0];if(t&&t.length>=4&&/[؀-ۿ]/.test(t)){vocab().forEach(function(w){if(grp.indexOf(w)<0&&lev(t,w)===1)grp.push(w)})}return grp})};
+function aiIntent(text){var l=nrm(text),g=GOV.filter(function(x){return l.indexOf(nrm(x))>=0})[0],s=S.store;
+ function fee(x){var f=x===s.homeGov?s.feeLocal:s.feeOther;return f>0?fmt(f)+' د.ع':'مجاني'}
+ if(/توصيل|شحن|اجور|رسوم/.test(l)&&/كم|بكم|شكد|سعر|اجور|رسوم|توصلون|وصل/.test(l)){return g?{h:'التوصيل إلى <b>'+esc(g)+'</b> بـ <b>'+fee(g)+'</b>'+(s.freeFrom>0?'، ويكون مجاناً للطلبات من '+fmt(s.freeFrom)+' د.ع فأكثر':'')+'. الدفع عند الاستلام.'}:{h:'نوصّل لكل المحافظات: <b>'+esc(s.homeGov)+'</b> بـ '+fee(s.homeGov)+'، وباقي المحافظات بـ '+fee('x')+(s.freeFrom>0?'، ومجاني للطلبات من '+fmt(s.freeFrom)+' د.ع فأكثر':'')+'. اكتب اسم محافظتك وأخبرك بالسعر بالضبط.'}}
+ if(/دفع|زين كاش|زينكاش|سوبر كي|سوبركي|ماستر|بطاقه|كارد|فيزا|كاش/.test(l))return{h:'طرق الدفع: <b>الدفع عند الاستلام</b> متاح لكل الطلبات. وللدفع بـ <b>زين كاش أو سوبر كي أو ماستر كارد</b> نرتّبه معك بعد تأكيد الطلب.<button class="btn sm" data-act="paychat" data-id="الدفع الإلكتروني">تحدث مع المبيعات عن الدفع</button>'};
+ if(/ارجاع|استبدال|ضمان|ترجيع|رجع/.test(l))return{h:'تقدر تطلب الإرجاع أو الاستبدال برقم طلبك، وتُفحص المنتجات عند الاستلام بحضور المندوب. التفاصيل في صفحة <a href="#policy" data-act="pol" data-id="returns">سياسة الاستبدال والإرجاع</a>.'};
+ if(/مبيعات|موظف|مدير|اتصل|تواصل|كلم|واتس|خدمه العملاء/.test(l))return{h:'أكيد! أحولك لمدير المبيعات مباشرة.<button class="btn sm" data-act="chat">افتح المحادثة</button>'};
+ if(/وين طلبي|تتبع|حاله الطلب|طلبي/.test(l))return{h:'تقدر تتابع طلبك من صفحة <a href="#orders">طلباتي</a> بإدخال رقم الطلب ورقم هاتفك.'};
+ if(/نقاط|مكافا|بلس/.test(l))return{h:'مع <b>مدار بلس</b> تكسب نقطة عن كل '+fmt(plusPer())+' د.ع من مشترياتك عند وصول الطلب، وتستبدلها بمكافآت. <a href="#plus">شوف رصيدك</a>.'};
+ if(/عروض|خصومات|تخفيضات|تنزيلات/.test(l)){var L=live().filter(function(p){return p.stock>0&&off(p)>0}).sort(function(a,b){return off(b)-off(a)}).slice(0,3);if(L.length)return{h:'هاي أقوى العروض هسه:'+L.map(function(p){return aiPick(p,'خصم '+off(p)+'%',L)}).join(''),picks:L}}
+ return null}
+var _aiRep=aiReply;aiReply=function(text){var r=null;try{r=aiIntent(text)}catch(e){}return r||_aiRep(text)};
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
