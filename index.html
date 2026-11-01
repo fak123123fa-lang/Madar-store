@@ -370,6 +370,29 @@ svg.art{filter:url(#gl3d) drop-shadow(0 3px 3px rgba(0,0,0,.18))}
 .hs.art{box-shadow:0 14px 26px -12px hsl(var(--h) 90% 30%/.85)!important;border:0!important}
 .hs .hx{background:linear-gradient(180deg,transparent,hsl(var(--h) 85% 16%/.55) 30%,hsl(var(--h) 90% 14%/.88))!important}.hs h3{text-shadow:0 2px 6px rgba(0,0,0,.45)}.hs .hch i{background:rgba(255,255,255,.92)!important;color:hsl(var(--h) 80% 22%)!important;font-weight:700}.hgo{background:linear-gradient(180deg,#FFB347,#FF7A00)!important;color:#fff!important;box-shadow:0 6px 12px -4px rgba(255,122,0,.7)}
 @media(max-width:400px){.hd .acts{gap:5px!important}.hd .acts .iconbtn{width:38px!important;height:38px!important}.hd .logo b{letter-spacing:.1em!important;font-size:17px!important}.hd .in{gap:6px!important;padding-inline:10px!important}}
+/* v18: أيقونات نظيفة · أزرار نحيفة · محادثة */
+.stc{display:flex!important;flex-direction:column;align-items:center;gap:6px!important;padding:12px 2px 10px!important;background:#fff!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 2px 6px rgba(11,30,60,.06)!important;transition:transform .15s}
+.stc:active{transform:scale(.95)}
+.sbadge{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#173d78,#0B1E3C);color:#fff;box-shadow:0 6px 12px -6px rgba(11,30,60,.7);overflow:hidden}.sbadge img{width:100%;height:100%;object-fit:cover}
+.stc b{font-size:14px!important;font-weight:800!important;color:var(--pri)!important;line-height:1.25;text-align:center}
+.stc em{font-size:9.5px!important;letter-spacing:.08em;color:var(--muted)!important;font-style:normal!important;line-height:1}
+.stc.soon .sbadge{background:#c9d1de;box-shadow:none}.stc.soon b{color:var(--muted)!important}.sooni{font-size:10px;color:var(--orange);font-weight:700;line-height:1}
+.fabs{position:fixed;inset-inline-start:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 92px);z-index:30}body.hascta .fabs{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}
+.chfab{width:44px;height:44px;border-radius:50%;border:0;background:#0B1E3C;color:#fff;display:grid;place-items:center;box-shadow:0 6px 16px rgba(11,30,60,.35);position:relative}
+.chdot{position:absolute;top:8px;inset-inline-end:9px;width:10px;height:10px;border-radius:50%;background:#FF7A00;border:2px solid #0B1E3C}
+.bar nav{height:60px!important;border-radius:22px!important;padding:0 6px!important;align-items:center}
+.bar a .ib{width:46px!important;height:26px!important;border-radius:13px!important;transform:none!important;margin:0!important;background:transparent!important;border:0!important;box-shadow:none!important;animation:none!important}
+.bar a[aria-current="page"]{color:var(--orange)!important}.bar a[aria-current="page"] .ib{background:rgba(255,122,0,.2)!important;color:var(--orange)!important;transform:none!important;margin:0!important;width:46px!important;height:26px!important;border:0!important;box-shadow:none!important}
+.bar a em{font-size:10.5px!important}
+.ifab{bottom:150px!important}
+.chbody{background:var(--bg)}.chm{max-width:84%;padding:9px 12px;border-radius:16px;font-size:14.5px;line-height:1.65;white-space:pre-wrap;word-break:break-word}.chm small{display:block;font-size:10.5px;opacity:.6;margin-top:2px}
+.chm.me{align-self:flex-start;background:var(--pri);color:var(--on-pri);border-end-start-radius:5px}.chm.ag{align-self:flex-end;background:var(--surface);border:1px solid var(--line);border-end-end-radius:5px}
+.chinfo{display:flex;gap:8px;padding:8px 12px 0;background:var(--surface)}.chinfo input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:var(--bg);font:inherit}
+.aiimg{max-width:190px;border-radius:12px;display:block}.aim.u:has(.aiimg){padding:5px;background:transparent;border:1px solid var(--line)}
+.aiimgb{cursor:pointer;flex:none}
+.polh{margin:16px 0 6px;font-size:16px;color:var(--pri);border-inline-start:4px solid var(--orange);padding-inline-start:9px}.polp{margin:0 0 8px;line-height:1.95;font-size:14.5px}
+.pol .polp,.pol p{border:0!important;background:none!important;padding:0!important;border-radius:0!important;box-shadow:none!important}.pol .polp::before,.pol p::before{content:none!important}
+.stc.soon .sbadge{background:linear-gradient(145deg,#7f95b8,#5b7399)!important}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -497,7 +520,7 @@ function applyLang(){var h=document.documentElement;h.setAttribute('dir',lang===
 buildDyn();
 /* ---- live API (Supabase REST, anon key only) ---- */
 function api(path,opt){opt=opt||{};return fetch(CFG.url+'/rest/v1/'+path,{method:opt.method||'GET',headers:{apikey:CFG.key,Authorization:'Bearer '+CFG.key,'Content-Type':'application/json'},body:opt.body?JSON.stringify(opt.body):undefined}).then(function(r){return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null}catch(e){}if(!r.ok)throw new Error((j&&j.message)||'تعذر الاتصال بالمتجر');return j})})}
-function loadLive(){loading=true;loadErr='';render();return Promise.all([api('stores?select=*&order=sort'),api('categories?select=*&order=sort'),api('brands?select=*&order=name'),api('products?select=*&active=eq.true&order=created_at.desc'),api('settings?select=*'),api('bundles?select=*,bundle_items(product_id,qty)&active=eq.true&order=sort')]).then(function(r){var set={};r[4].forEach(function(x){set[x.key]=x.value});
+function loadLive(){loading=true;loadErr='';render();return Promise.all([api('stores?select=*&order=sort'),api('categories?select=*&order=sort'),api('brands?select=*&order=name'),apiAll('products?select=*&active=eq.true&order=created_at.desc'),api('settings?select=*'),api('bundles?select=*,bundle_items(product_id,qty)&active=eq.true&order=sort')]).then(function(r){var set={};r[4].forEach(function(x){set[x.key]=x.value});
   S.stores=r[0].map(function(s){return{id:s.id,name:s.name,en_name:s.name_en,short:s.short,en_short:s.short_en,en:(s.name_en||'').toUpperCase(),tag:s.tagline||'',en_tag:s.tagline_en||'',hue:s.hue,icon:s.icon,live:s.live,image:s.image||''}});
   S.cats=r[1].map(function(c){return{id:c.id,name:c.name,en_name:c.name_en,store:c.store_id}});
   S.brands=r[2].map(function(b){return{name:b.name,agency:b.agency}});
@@ -701,7 +724,7 @@ function sheetResult(r){var wa=S.store.whatsapp.replace(/\D/g,'');setTimeout(con
  return '<div class="sbody" style="text-align:center;padding-top:22px">'+mascot(84,1)+'<div class="ok" style="display:none"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.500l4.500 4.500L19 7"/></svg></div><h2>'+esc(r.title)+'</h2>'+(r.no?'<p>رقم الطلب <b dir="ltr">'+esc(r.no)+'</b></p>':'')+'<p class="muted" style="font-size:14px">'+esc(r.lead)+'</p>'+
  '<a class="btn block wabtn" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'?text='+encodeURIComponent(r.text)+'">'+ic('chat',20)+'أرسل الفاتورة على واتساب</a><p class="muted" style="font-size:12.5px;margin:8px 0 0">اضغط الزر لإرسال فاتورتك إلى المتجر مباشرة وتأكيد طلبك.</p>'+'<button class="btn ghost block" style="margin-top:10px" data-act="close">إغلاق</button></div>'}
 function sheetCity(){return '<div class="grab"></div><div class="sbody"><h2 style="margin-block:8px 12px">التوصيل إلى</h2>'+GOV.map(function(g){return '<button class="rrow" data-act="setcity" data-id="'+g+'" aria-pressed="'+(g===city)+'"><span>'+g+'</span>'+(g===city?ic('check',18):'')+'</button>'}).join('')+'</div>'}
-function sheetHTML(){if(!sheet&&!form)return '';var b;if(form)b=sheetForm();else if(sheet.kind==='p'){var p=prod(sheet.id);if(!p){sheet=null;return ''}b=sheetProduct(p)}else if(sheet.kind==='city')b=sheetCity();else if(sheet.kind==='prefs')b=sheetPrefs();else if(sheet.kind==='finder')b=sheetFinder();else if(sheet.kind==='ai')b=sheetAI();else if(sheet.kind==='img')b=sheetImg();else if(sheet.kind==='plusok')b=sheetPlusOk();else b=sheetResult(sheet.r);
+function sheetHTML(){if(!sheet&&!form)return '';var b;if(form)b=sheetForm();else if(sheet.kind==='p'){var p=prod(sheet.id);if(!p){sheet=null;return ''}b=sheetProduct(p)}else if(sheet.kind==='city')b=sheetCity();else if(sheet.kind==='prefs')b=sheetPrefs();else if(sheet.kind==='finder')b=sheetFinder();else if(sheet.kind==='ai')b=sheetAI();else if(sheet.kind==='chat')b=sheetChat();else if(sheet.kind==='img')b=sheetImg();else if(sheet.kind==='plusok')b=sheetPlusOk();else b=sheetResult(sheet.r);
  return '<div class="over" data-act="ov"><div class="sheet" role="dialog" aria-modal="true">'+b+'</div></div>'}
 function nav(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'?'account':r;return '<div class="bar"><nav aria-label="التنقل">'+['home','cats','favs','orders','account'].map(function(k){return '<a href="#'+k+'"'+(cur===k?' aria-current="page"':'')+'><span class="ib">'+ic(k,22)+'</span>'+LABEL[k]+'</a>'}).join('')+'</nav></div>'}
 function render(){if(loading||loadErr){$('#app').innerHTML=loading?'<div class="empty" style="padding-top:120px">'+ORBIT+'جاري التحميل...</div>':'<div class="empty" style="padding-top:120px">تعذر الاتصال بالمتجر<button class="btn" data-act="retry">إعادة المحاولة</button><span class="note">'+esc(loadErr)+'</span></div>';tr($('#app'));return}var r=route();if(r==='store'&&curStore===null){curStore='all'}var v={home:vHome,cats:vCats,store:vStore,favs:vFavs,orders:vOrders,account:vAccount,cart:vCart,business:vBusiness,admin:vAdmin,policy:vPolicy,login:vLogin,plus:vPlus}[r]();var cta=ctaBar();
@@ -918,7 +941,7 @@ var RT={},RWD=[],PL=LS.get('plus_demo',{bal:120,life:120,led:[{points:120,kind:'
 function nrm(s){return String(s||'').toLowerCase().replace(/[ً-ْـ]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)}).replace(/[۰-۹]/g,function(d){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)})}
 function hsh(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h}
 /* ---- التقييمات ---- */
-function loadRatings(){if(!LIVE)return;api('reviews?select=product_id,rating&approved=eq.true&limit=5000').then(function(r){var m={};r.forEach(function(x){var o=m[x.product_id]||(m[x.product_id]={s:0,n:0});o.s+=x.rating;o.n++});RT={};Object.keys(m).forEach(function(k){RT[k]={avg:m[k].s/m[k].n,n:m[k].n}});render()}).catch(function(){})}
+function loadRatings(){if(!LIVE)return;apiAll('reviews?select=product_id,rating&approved=eq.true&order=created_at').then(function(r){var m={};r.forEach(function(x){var o=m[x.product_id]||(m[x.product_id]={s:0,n:0});o.s+=x.rating;o.n++});RT={};Object.keys(m).forEach(function(k){RT[k]={avg:m[k].s/m[k].n,n:m[k].n}});render()}).catch(function(){})}
 function rate(p){if(RT[p.id])return RT[p.id];if(!LIVE&&p.sample!==false){var h=hsh(p.id);return{avg:4+(h%10)/10,n:6+h%38}}return null}
 function rateMini(p){var r=rate(p);return r?'<em class="rtm">★ '+r.avg.toFixed(1)+' <small>('+r.n+')</small></em>':''}
 function rateTag(p){var r=rate(p);return r?'<span class="rt">★ '+r.avg.toFixed(1)+' <small>('+r.n+' تقييم)</small></span>':'<span class="rt nw">جديد · بدون تقييم</span>'}
@@ -990,7 +1013,7 @@ function aiReply(text){var low=nrm(text).trim();
 var AI={msgs:[],ctx:null,draft:'',typing:false};
 function sheetAI(){if(!AI.msgs.length)AI.msgs.push({r:'b',h:'هلا بيك في <b>مدار الذكي</b> ✨<br>احچيلي بلهجتك شنو تحتاج وميزانيتك، وأرشح لك ثلاث خيارات من المتوفر فعلاً وأقارن بينها.'});
  var ex=['سماعة للمكالمات والدراسة لحد 35 ألف','هدية مناسبة للأطفال','شنطة عملية للدوام','أرخص عطر عندكم'];
- return '<div class="grab"></div><div class="aihd"><span class="aiav">'+ic('wand',22)+'</span><div><b>مدار الذكي</b><small>مساعد التسوق · يفهم اللهجة العراقية</small></div><button class="iconbtn" data-act="close" aria-label="إغلاق">'+ic('close',20)+'</button></div><div class="sbody aibody" id="aib">'+AI.msgs.map(function(m){return '<div class="aim '+m.r+'">'+(m.r==='u'?esc(m.t):m.h)+'</div>'}).join('')+(AI.typing?'<div class="aim b"><span class="dots"><i></i><i></i><i></i></span></div>':'')+(AI.msgs.length<2?'<div class="aichips">'+ex.map(function(e){return '<button data-act="aichip" data-t="'+esc(e)+'">'+esc(e)+'</button>'}).join('')+'</div>':'')+'</div><div class="aibar"><button class="iconbtn" data-act="aimic" aria-label="تحدث" id="aimic">'+svgMic()+'</button><input id="aiq" placeholder="اكتب طلبك… مثلاً: أريد ساعة بحدود 50 ألف" value="'+esc(AI.draft)+'" autocomplete="off"><button class="aisend" data-act="aisend" aria-label="إرسال">'+ic('next',20)+'</button></div>'}
+ return '<div class="grab"></div><div class="aihd"><span class="aiav">'+ic('wand',22)+'</span><div><b>مدار الذكي</b><small>مساعد التسوق · يفهم اللهجة العراقية</small></div><button class="iconbtn" data-act="close" aria-label="إغلاق">'+ic('close',20)+'</button></div><div class="sbody aibody" id="aib">'+AI.msgs.map(function(m){return '<div class="aim '+m.r+'">'+(m.r==='u'?(m.img?'<img class="aiimg" src="'+m.img+'" alt="">':esc(m.t)):m.h)+'</div>'}).join('')+(AI.typing?'<div class="aim b"><span class="dots"><i></i><i></i><i></i></span></div>':'')+(AI.msgs.length<2?'<div class="aichips">'+ex.map(function(e){return '<button data-act="aichip" data-t="'+esc(e)+'">'+esc(e)+'</button>'}).join('')+'</div>':'')+'</div><div class="aibar"><button class="iconbtn" data-act="aimic" aria-label="تحدث" id="aimic">'+svgMic()+'</button><input id="aiq" placeholder="اكتب طلبك… مثلاً: أريد ساعة بحدود 50 ألف" value="'+esc(AI.draft)+'" autocomplete="off"><button class="aisend" data-act="aisend" aria-label="إرسال">'+ic('next',20)+'</button></div>'}
 function svgMic(){return '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>'}
 function svgCam(s){return '<svg width="'+(s||20)+'" height="'+(s||20)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.6"/></svg>'}
 function aiScroll(){var b=$('#aib');if(b)b.scrollTop=b.scrollHeight;var i=$('#aiq');if(i&&!('ontouchstart' in window))i.focus()}
@@ -1063,6 +1086,165 @@ window.MYA={ai:function(){sheet={kind:'ai'};render();setTimeout(aiScroll,50)},ai
 document.addEventListener('keydown',function(e){if(e.target&&e.target.id==='aiq'){if(e.key==='Enter'){e.preventDefault();aiSend(e.target.value)}}});
 document.addEventListener('input',function(e){if(e.target&&e.target.id==='aiq')AI.draft=e.target.value;if(e.target&&e.target.id==='imgq')IMG.txt=e.target.value});
 document.addEventListener('change',function(e){var t=e.target;if(t&&(t.id==='imgf'||t.id==='imgcam')&&t.files&&t.files[0]){imgRead(t.files[0]);t.value=''}});
+
+/* ================= v17: أيقونات نظيفة · محادثة المبيعات · صورة داخل المساعد · ترقيم ================= */
+var STG={beauty:'<path d="M9 3h6v3H9z"/><path d="M7 8h10a1 1 0 011 1v10a2 2 0 01-2 2H8a2 2 0 01-2-2V9a1 1 0 011-1z"/><path d="M12 12v5"/>',
+ elec:'<rect x="7" y="2.500" width="10" height="19" rx="2"/><path d="M11 18.500h2"/>',
+ office:'<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+ home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+ kids:'<path d="M3 12h8v8H3zM13 12h8v8h-8zM8 4h8v8H8z"/>',
+ fashion:'<path d="M8 3L3 6l2 4 3-1v11h8V9l3 1 2-4-5-3c-1 2-2 3-4 3S9 5 8 3z"/>',
+ fresh:'<path d="M12 7c-3-2-7 0-7 5 0 4 3 8 5 8 1 0 1.500-.5 2-.5s1 .5 2 .5c2 0 5-4 5-8 0-5-4-7-7-5z"/><path d="M12 7c0-2 1-3 3-4"/>',
+ health:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+ auto:'<path d="M4 16v-4l2-5h12l2 5v4"/><path d="M4 16h16M7 12h10"/><circle cx="7.500" cy="17.500" r="1.500"/><circle cx="16.500" cy="17.500" r="1.500"/>',
+ sports:'<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M5.500 5.500c3 3 3 10 0 13M18.500 5.500c-3 3-3 10 0 13"/>',
+ gifts:'<path d="M3 9h18v4H3zM5 13v8h14v-8M12 9v12"/><path d="M12 9c-2-4-6-4-5-1.500.5 1.500 3 1.500 5 1.500zM12 9c2-4 6-4 5-1.500-.5 1.500-3 1.500-5 1.500z"/>',
+ pets:'<circle cx="6.500" cy="10" r="1.800"/><circle cx="10" cy="6" r="1.800"/><circle cx="14" cy="6" r="1.800"/><circle cx="17.500" cy="10" r="1.800"/><path d="M12 12c-3 0-5 3-5 5 0 2 2 2.500 3.500 2 1-.4 2-.4 3 0 1.500.5 3.500 0 3.500-2 0-2-2-5-5-5z"/>',
+ tools:'<path d="M14.700 6.300a1 1 0 000 1.400l1.600 1.600a1 1 0 001.400 0l3.770-3.770a6 6 0 01-7.940 7.940l-6.910 6.910a2.120 2.120 0 01-3-3l6.910-6.910a6 6 0 017.940-7.940l-3.760 3.760z"/>',
+ books:'<path d="M5 4h10a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h10M9 8h5"/>',
+ biz:'<rect x="3" y="8" width="18" height="12" rx="2"/><path d="M9 8V5h6v3M3 13h18"/>',
+ def:'<path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 016 0"/>'};
+function glyph(id,sz){return '<svg width="'+(sz||26)+'" height="'+(sz||26)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(STG[id]||STG.def)+'</svg>'}
+storeTile=function(s,kind){var en=(lang==='en'?'':(s.en_short||s.en_name||s.en||'')).toUpperCase(),nm=esc(s.short||s.name),
+ inner='<span class="sbadge">'+(s.image?'<img src="'+esc(s.image)+'" alt="">':glyph(s.id,27))+'</span><b>'+nm+'</b>'+(en?'<em>'+esc(en)+'</em>':'')+(kind==='soon'?'<span class="sooni">قريباً</span>':'');
+ if(kind==='soon')return '<button class="stc soon" data-act="store" data-id="'+s.id+'">'+inner+'</button>';
+ if(kind==='biz')return '<a class="stc" href="#business">'+inner+'</a>';
+ return '<button class="stc" data-act="store" data-id="'+s.id+'">'+inner+'</button>'};
+/* ---- تحميل بلا حد ---- */
+function apiAll(path){var out=[],step=1000;function go(off){return api(path+(path.indexOf('?')<0?'?':'&')+'limit='+step+'&offset='+off).then(function(r){out=out.concat(r);return r.length===step?go(off+step):out})}return go(0)}
+var PG=24;
+var _gm=gridM;gridM=function(l){return _gm(l.slice(0,PG))+(l.length>PG?'<button class="btn ghost block" style="margin-top:12px" data-act="more">عرض المزيد ('+fmt(l.length-PG)+')</button>':'')};
+var _gr=grid;grid=function(l){return _gr(l.slice(0,PG))+(l.length>PG?'<button class="btn ghost block" style="margin-top:12px" data-act="more">عرض المزيد ('+fmt(l.length-PG)+')</button>':'')};
+window.addEventListener('hashchange',function(){PG=24});
+/* ---- المحادثة مع مدير المبيعات ---- */
+function chTok(){var t=LS.get('chtok','');if(!t||t.length<24){var a=new Uint8Array(18);(window.crypto||{getRandomValues:function(x){for(var i=0;i<x.length;i++)x[i]=Math.random()*256}}).getRandomValues(a);t=[].map.call(a,function(b){return('0'+b.toString(16)).slice(-2)}).join('');LS.set('chtok',t)}return t}
+var CH={msgs:[],info:LS.get('chinfo',{name:'',phone:''}),t:0,busy:false,dot:false};
+function chWelcome(){return{s:'agent',b:'أهلاً بك في مدار 👋 أنا مدير المبيعات. اسألني عن أي منتج أو طلب أو عرض وأرد عليك بأسرع وقت.',w:1}}
+function chLoad(quiet){if(!LIVE){CH.msgs=LS.get('chdemo',[]);if(!quiet)chPaint();return Promise.resolve()}
+ return api('rpc/chat_fetch',{method:'POST',body:{p_token:chTok()}}).then(function(r){var n=CH.msgs.length;CH.msgs=r||[];if(CH.msgs.length!==n||!quiet)chPaint();if(sheet&&sheet.kind==='chat')LS.set('chseen',CH.msgs.length);else if(CH.msgs.length>LS.get('chseen',0)&&CH.msgs.length&&CH.msgs[CH.msgs.length-1].s==='agent'){CH.dot=true;render()}}).catch(function(){})}
+function chPaint(){var b=$('#chb');if(!b)return;var L=[chWelcome()].concat(CH.msgs);b.innerHTML=L.map(function(m){return '<div class="chm '+(m.s==='customer'?'me':'ag')+'">'+esc(m.b)+(m.t?'<small>'+new Date(m.t).toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'})+'</small>':'')+'</div>'}).join('')+(CH.busy?'<div class="chm me" style="opacity:.6">…</div>':'');b.scrollTop=b.scrollHeight}
+function sheetChat(){var need=!CH.info.name&&!(AU&&AU.name);return '<div class="grab"></div><div class="aihd"><span class="aiav" style="background:linear-gradient(135deg,#1F8A5B,#0095C8)">'+ic('chat',22)+'</span><div><b>مدير المبيعات</b><small>نردّ عادةً خلال دقائق</small></div><a class="iconbtn" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'" aria-label="واتساب" style="background:#25D366;color:#fff;border-color:#25D366">'+ic('chat',18)+'</a><button class="iconbtn" data-act="close" aria-label="إغلاق">'+ic('close',20)+'</button></div>'+
+ '<div class="sbody aibody chbody" id="chb"></div>'+(need?'<div class="chinfo"><input id="chn" placeholder="اسمك" value="'+esc(CH.info.name)+'"><input id="chp" dir="ltr" inputmode="tel" placeholder="رقم الهاتف (اختياري)" value="'+esc(CH.info.phone)+'"></div>':'')+
+ '<div class="aibar"><input id="chq" placeholder="اكتب رسالتك لمدير المبيعات…" autocomplete="off"><button class="aisend" data-act="chsend" aria-label="إرسال">'+ic('next',20)+'</button></div>'}
+function chSend(){var i=$('#chq'),txt=(i&&i.value||'').trim();if(!txt||CH.busy)return;var n=$('#chn'),p=$('#chp');if(n){CH.info.name=n.value.trim();CH.info.phone=p?p.value.trim():CH.info.phone;if(!CH.info.name&&!(AU&&AU.name)){toast('اكتب اسمك أولاً');return}LS.set('chinfo',CH.info)}
+ var nm=CH.info.name||(AU&&AU.name)||'';i.value='';CH.msgs.push({s:'customer',b:txt,t:new Date().toISOString()});chPaint();
+ if(!LIVE){LS.set('chdemo',CH.msgs);setTimeout(function(){CH.msgs.push({s:'agent',b:'(رد تجريبي) استلمنا رسالتك، وفي الموقع الحقيقي سيرد عليك مدير المبيعات هنا مباشرة.',t:new Date().toISOString()});LS.set('chdemo',CH.msgs);chPaint()},1100);return}
+ api('rpc/chat_send',{method:'POST',body:{p_token:chTok(),p_name:nm,p_phone:CH.info.phone||'',p_body:txt}}).then(function(){chLoad(true)}).catch(function(e){toast(e.message||'تعذر الإرسال')})}
+function chOpen(){CH.dot=false;sheet={kind:'chat'};render();chPaint();chLoad(false);clearInterval(CH.t);CH.t=setInterval(function(){if(!sheet||sheet.kind!=='chat'){clearInterval(CH.t);return}chLoad(true)},6000);LS.set('chseen',CH.msgs.length)}
+waFab=function(){return '<div class="fabs"><button class="chfab" data-act="chat" aria-label="تحدث مع مدير المبيعات">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</button></div>'};
+document.addEventListener('keydown',function(e){if(e.target&&e.target.id==='chq'&&e.key==='Enter'){e.preventDefault();chSend()}});
+/* ---- صورة داخل مدار الذكي ---- */
+function aiImgFile(file){if(!file||AI.typing)return;var u=URL.createObjectURL(file),im=new Image();AI.typing=true;
+ im.onload=function(){var s=Math.min(1,320/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.max(8,Math.round(im.width*s));c.height=Math.max(8,Math.round(im.height*s));c.getContext('2d').drawImage(im,0,0,c.width,c.height);var du=c.toDataURL('image/jpeg',.7),t=document.createElement('canvas');t.width=t.height=48;t.getContext('2d').drawImage(im,0,0,48,48);URL.revokeObjectURL(u);AI.feat=feat(t);AI.msgs.push({r:'u',img:du});keep();aiScroll();aiImgRun('')};
+ im.onerror=function(){AI.typing=false;toast('تعذر قراءة الصورة')};im.src=u}
+function aiImgRun(txt){var words=nrm(txt).split(/\s+/).filter(function(t){return t&&STOP.indexOf(t)<0}).map(stem).filter(function(t){return t.length>=2}),groups=words.length?expand(words):[],pool=live().filter(function(p){return p.stock>0}).slice(0,200);
+ Promise.all(pool.map(loadPF)).then(function(fs){var out=pool.map(function(p,i){var sc=groups.length?scoreP(p,groups,[]):{hit:0,core:0},cs=AI.feat?simF(AI.feat,fs[i]):0;return{p:p,txt:sc.hit>0,v:(groups.length?Math.min(sc.core,9)/9*.65:0)+cs*(groups.length?.35:1),c:cs}});
+  var hasT=out.some(function(x){return x.txt});out=groups.length&&hasT?out.filter(function(x){return x.txt}):out.filter(function(x){return x.c>.62});out.sort(function(a,b){return b.v-a.v});var L=out.slice(0,3).map(function(x){return x.p}),h;
+  if(L.length){var tg=tagFor(L);h='لقيت لك هاي الأقرب لصورتك'+(groups.length?' ووصفك':' (بالألوان والشكل العام)')+':'+L.map(function(p){return aiPick(p,tg[p.id],L)}).join('')+'<div class="aihint">للدقة أكثر اكتب لي شنو هذا المنتج (مثلاً: شنطة يد سودة) وأعيد البحث.</div>';AI.imgWait=!groups.length}
+  else{h='ما لگيت شي يشبه الصورة بالمتوفر حالياً 😔 اكتب لي وصفها بكلمات وأدور لك، أو اسأل المتجر مباشرة.<a class="btn ghost sm" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'?text='+encodeURIComponent('هلا، أبحث عن منتج مشابه لصورة سأرسلها لكم. هل يتوفر؟')+'">اسأل على واتساب</a>';AI.imgWait=true}
+  AI.msgs.push({r:'b',h:h});AI.typing=false;keep();aiScroll()})}
+var _aiSend=aiSend;aiSend=function(text){text=(text||'').trim();if(AI.imgWait&&AI.feat&&text&&!AI.typing){AI.imgWait=false;AI.draft='';AI.msgs.push({r:'u',t:text});AI.typing=true;keep();aiScroll();aiImgRun(text);return}_aiSend(text)};
+var _sAI=sheetAI;sheetAI=function(){return _sAI().replace('<input id="aiq"','<label class="iconbtn aiimgb" aria-label="صورة"><input type="file" accept="image/*" id="aiimg" hidden>'+svgCam(20)+'</label><input id="aiq"')};
+document.addEventListener('change',function(e){if(e.target&&e.target.id==='aiimg'&&e.target.files[0]){aiImgFile(e.target.files[0]);e.target.value=''}});
+Object.assign(window.MYA,{chat:chOpen,chsend:chSend,more:function(){PG+=24;if(route()==='store'&&$('#sres')){$('#sres').innerHTML=gridM(storeList());tr($('#sres'))}else render()}});
+if(LIVE)setTimeout(function(){if(LS.get('chtok','')){chLoad(true)}},2500);
+
+/* ---- سياسة الخصوصية وشروط الاستخدام (كاملة) ---- */
+POL.privacy={ar:['سياسة الخصوصية',['آخر تحديث: نوفمبر 2026. توضح هذه السياسة كيف تجمع «مدار – مجموعة مدار التجارية» بياناتك وتستخدمها وتحميها عند استخدامك للمتجر وتطبيقه، وهي تعمل في جمهورية العراق وفق القوانين النافذة فيها.',
+ '## البيانات التي نجمعها',
+ '• بيانات الطلب: الاسم الكامل، رقم الهاتف، المحافظة والمنطقة والعنوان وأقرب نقطة دالة، وأي ملاحظة تكتبها.',
+ '• بيانات الحساب (اختيارية): البريد الإلكتروني والاسم، أو بيانات تعريف حساب Google عند الدخول به. لا نحتفظ بكلمة مرورك، فهي تُدار مشفّرة لدى مزوّد المصادقة.',
+ '• المحادثة مع مدير المبيعات: الاسم، ورقم الهاتف إن أدخلته، ونص الرسائل.',
+ '• التقييمات: الاسم والتعليق ودرجة التقييم التي تكتبها.',
+ '• الصور في «البحث بالصورة» تُحلَّل على جهازك لحظياً، ولا تُرفع إلى خوادمنا ولا تُخزَّن.',
+ '• تخزين محلي على جهازك: السلة والمفضلة واللغة والعملة والمدينة وآخر ما تصفحته، لتسهيل استخدامك.',
+ '• لا نجمع ولا نخزّن بيانات بطاقات مصرفية؛ الدفع عند الاستلام.',
+ '## كيف نستخدم بياناتك',
+ '• تنفيذ طلبك وتوصيله والتواصل معك بشأنه وإصدار الفاتورة.',
+ '• الرد على استفساراتك عبر المحادثة وواتساب وخدمة العملاء.',
+ '• احتساب نقاط «مدار بلس» واستبدال المكافآت.',
+ '• منع الاحتيال والطلبات الوهمية وحماية المتجر والزبائن.',
+ '• تحسين المنتجات والخدمات. لا نرسل لك رسائل ترويجية إلا بموافقتك.',
+ '## مشاركة البيانات',
+ 'لا نبيع بياناتك ولا نؤجرها. نشاركها فقط بالقدر اللازم مع: شركة أو مندوب التوصيل (الاسم والهاتف والعنوان)، والمتاجر الشريكة عند استبدالك مكافأة منها، ومزوّدي الخدمات التقنية الذين يستضيفون المتجر وقاعدة بياناته، والجهات الرسمية إذا طُلب منا ذلك قانونياً.',
+ '## واتساب',
+ 'عند اختيارك إرسال الفاتورة أو التواصل عبر واتساب تنتقل المحادثة إلى تطبيق واتساب وتخضع لسياسة خصوصيته. أنت من يقرر إرسال الرسالة.',
+ '## مدار بلس',
+ 'تُسجَّل نقاطك وعمليات استبدالها في حسابك وحده، ولا تُعرض لزبائن آخرين. قد نشارك اسم المكافأة ورمز الاستبدال مع المتجر الشريك المعني لتسليمها لك.',
+ '## الأمان',
+ 'نستخدم اتصالاً مشفّراً (HTTPS)، وصلاحيات وصول مفصولة على قاعدة البيانات بحيث لا يرى الزبون إلا بياناته، وحسابات إدارة محمية بتسجيل دخول. ومع ذلك لا توجد وسيلة حماية مطلقة، فاحرص على سرية بيانات دخولك.',
+ '## مدة الاحتفاظ',
+ 'نحتفظ ببيانات الطلبات للمدة اللازمة للمحاسبة والضمان والإرجاع وحل النزاعات، وبالمحادثات والحسابات ما دام حسابك قائماً أو حتى تطلب حذفها، ثم نحذفها أو نجعلها مجهولة الهوية.',
+ '## حقوقك',
+ 'يحق لك طلب الاطلاع على بياناتك أو تصحيحها أو حذفها (بما فيها المحادثات والحساب)، وسحب موافقتك على الرسائل الترويجية، والاعتراض على معالجة بياناتك. أرسل طلبك عبر المحادثة أو واتساب وننفذه خلال مدة معقولة.',
+ '## الأطفال',
+ 'المتجر غير موجّه لمن هم دون 18 عاماً، ونرجو أن يتم الطلب بإشراف ولي الأمر.',
+ '## روابط وخدمات خارجية',
+ 'قد تحتوي صفحاتنا على روابط لمنصات خارجية (واتساب، وسائل التواصل، Google). لسنا مسؤولين عن سياسات خصوصيتها.',
+ '## تعديل السياسة',
+ 'قد نحدّث هذه السياسة من وقت لآخر، ويظهر تاريخ آخر تحديث أعلاها. استمرارك في استخدام المتجر بعد التحديث يعني موافقتك عليه.',
+ '## التواصل معنا',
+ 'لأي سؤال أو طلب بخصوص خصوصيتك: تحدّث مع مدير المبيعات من زر المحادثة، أو عبر واتساب على الرقم {{wa}}.']],
+ en:['Privacy Policy',['Last updated: November 2026. This policy explains how MADAR (Madar Trading Group), operating in the Republic of Iraq, collects, uses and protects your data.',
+ '## What we collect',
+ '• Order details: name, phone, governorate, area, address, landmark and notes.',
+ '• Account details (optional): email and name, or Google profile identifiers if you sign in with Google. We do not keep your password.',
+ '• Sales chat: name, optional phone and message text. Reviews: name, rating and comment.',
+ '• Photos used in image search are analysed on your device and are never uploaded or stored.',
+ '• Local storage on your device: cart, favourites, language, currency, city and recent views.',
+ '• We do not collect card data; payment is cash on delivery.',
+ '## How we use it',
+ 'To fulfil and deliver orders, issue invoices, answer your questions, calculate Madar Plus points, prevent fraud, and improve the store. We send promotions only with your consent.',
+ '## Sharing',
+ 'We never sell your data. We share only what is needed with delivery companies, partner stores (for reward redemptions), technical service providers that host the store, and authorities when legally required.',
+ '## WhatsApp',
+ 'When you send an invoice or contact us through WhatsApp, the conversation moves to WhatsApp and is governed by its policy.',
+ '## Security and retention',
+ 'Encrypted connections, per-user database access rules and protected admin accounts. We keep order data as long as needed for accounting, warranty and returns, and chats and accounts until you ask us to delete them.',
+ '## Your rights',
+ 'You may request access, correction or deletion of your data, withdraw marketing consent, and object to processing, via the sales chat or WhatsApp.',
+ '## Children and changes',
+ 'The store is not directed to people under 18. We may update this policy; the date above shows the latest version.',
+ '## Contact',
+ 'Use the sales chat button or WhatsApp at {{wa}}.']]};
+POL.terms={ar:['شروط الاستخدام',['باستخدامك متجر «مدار» أو إتمامك طلباً فيه فإنك توافق على الشروط التالية.',
+ '## الطلبات والتأكيد',
+ '• كل طلب يخضع للتأكيد من فريق المبيعات هاتفياً أو عبر واتساب قبل التجهيز، ويحق لنا رفض أو إلغاء أي طلب غير مكتمل البيانات أو غير موثوق.',
+ '• أنت مسؤول عن صحة الاسم والهاتف والعنوان المدخلة.',
+ '## الأسعار والتوفر',
+ '• الأسعار بالدينار العراقي، ويُعرض الدولار للمعلومة فقط حسب سعر الصرف المعتمد في المتجر.',
+ '• قد تتغير الأسعار والعروض والكميات دون إشعار مسبق، والسعر المعتمد هو المعروض وقت تأكيد الطلب. العروض محددة بوقتها أو بنفاد الكمية.',
+ '## التوصيل والدفع',
+ '• يتم التوصيل إلى المحافظات بحسب الرسوم الظاهرة قبل التأكيد، وقد تتأثر المدة بالظروف الأمنية والجوية.',
+ '• الدفع نقداً عند الاستلام. يرجى فحص المنتج بحضور المندوب.',
+ '## الإلغاء والإرجاع والاستبدال',
+ 'تُطبَّق «سياسة الاستبدال والإرجاع» المنشورة في المتجر، وهي جزء من هذه الشروط.',
+ '## الحسابات ومدار بلس',
+ '• يمكنك الطلب كضيف أو بحساب. أنت مسؤول عن سرية بيانات دخولك.',
+ '• نقاط «مدار بلس» ليس لها قيمة نقدية، غير قابلة للتحويل أو البيع، وتُضاف عند تسليم الطلب وتُسحب عند الإرجاع أو الإلغاء، ويحق لنا إيقافها أو تعديل المكافآت عند إساءة الاستخدام أو التحايل.',
+ '## الاستخدام المقبول',
+ 'يُمنع إدخال بيانات كاذبة، أو محاولة اختراق المتجر، أو نشر محتوى مسيء في التقييمات والمحادثة. نحتفظ بحق حذف المحتوى المخالف وتعليق الحساب.',
+ '## الملكية الفكرية',
+ 'الشعار والتصاميم ونصوص المتجر ملك لمجموعة مدار، ولا يجوز نسخها دون إذن. أسماء الماركات المعروضة ملك لأصحابها.',
+ '## حدود المسؤولية',
+ 'نبذل جهدنا لدقة المعلومات والصور، وقد تختلف الألوان والتغليف قليلاً عن الواقع. لا نتحمل أضراراً غير مباشرة ناتجة عن استخدام الموقع، ولا يمس ذلك حقوقك القانونية.',
+ '## القانون المطبّق',
+ 'تخضع هذه الشروط لقوانين جمهورية العراق، وتختص محاكمها بالنظر في أي نزاع بعد محاولة الحل الودي.',
+ '## التعديل والتواصل',
+ 'قد نعدّل هذه الشروط وتسري من تاريخ نشرها. للتواصل: زر المحادثة أو واتساب {{wa}}.']],
+ en:['Terms of Use',['By using MADAR or placing an order you agree to these terms.',
+ '## Orders','Every order is confirmed by our sales team by phone or WhatsApp before preparation; we may refuse or cancel incomplete or untrustworthy orders. You are responsible for the accuracy of your details.',
+ '## Prices and availability','Prices are in Iraqi dinar; USD is shown for reference. Prices, offers and stock may change without notice; the price at confirmation applies.',
+ '## Delivery and payment','Delivery fees are shown before confirmation. Payment is cash on delivery; please inspect the item with the courier.',
+ '## Returns','The Returns and Exchange policy published in the store is part of these terms.',
+ '## Accounts and Madar Plus','Points have no cash value, are non-transferable, are added on delivery and reversed on return or cancellation, and may be suspended in case of abuse.',
+ '## Acceptable use','No false data, hacking attempts or abusive content. We may remove content and suspend accounts.',
+ '## Liability and law','We strive for accurate information; colours may differ slightly. These terms are governed by the laws of the Republic of Iraq.',
+ '## Contact','Sales chat or WhatsApp {{wa}}.']]};
+vPolicy=function(){var d=POL[polSec]||POL.about,x=d[lang==='en'?'en':'ar'],paras=x[1].slice(),wa=String(S.store.phone||S.store.whatsapp||'07869863405').replace(/\D/g,'');if(wa.indexOf('964')===0)wa='0'+wa.slice(3);
+ if(polSec==='returns'&&paras[0]===null)paras[0]=lang==='en'?(S.store.returnPolicy_en||'Return and exchange conditions are set by the store.'):S.store.returnPolicy;
+ var body=paras.map(function(t){t=String(t).split('{{wa}}').join(wa);return t.indexOf('## ')===0?'<h3 class="polh">'+esc(t.slice(3))+'</h3>':'<p class="polp">'+esc(t)+'</p>'}).join('');
+ return header()+'<div class="wrap"><div class="sh" style="margin-top:14px"><h2>'+(lang==='en'?'Policies':'السياسات')+'</h2></div><div class="chips">'+[['about','من نحن'],['returns','الاستبدال والإرجاع'],['privacy','سياسة الخصوصية'],['terms','شروط الاستخدام']].map(function(c){return '<button class="chip" data-act="pol" data-id="'+c[0]+'" aria-pressed="'+(polSec===c[0])+'">'+c[1]+'</button>'}).join('')+'</div><div class="panel nt pol" style="margin-top:12px"><h2 style="margin-bottom:10px">'+esc(x[0])+'</h2>'+body+'</div></div>'};
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
