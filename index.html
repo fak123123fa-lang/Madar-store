@@ -451,6 +451,27 @@ body.fabon .fabs{opacity:1;pointer-events:auto;transform:none}
 .whsvg{width:100%;height:100%;display:block}
 .whptr{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:2;width:0;height:0;border-inline:13px solid transparent;border-top:24px solid #F59E0B;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
 .whres{margin:0 0 12px;padding:12px;border-radius:14px;background:var(--tint)}.whres b{display:block;font-size:17px}.whres small{color:var(--muted)}
+/* v23 games + nav */
+.bar nav.n6{grid-template-columns:repeat(6,1fr)!important;padding-inline:2px!important}
+.bar nav.n6 a em{font-size:10.5px!important}
+.bar nav.n6 a .ib{width:42px!important;position:relative}
+.bar nav.n6 a[aria-current="page"] .ib{width:52px!important}
+.bar .chdot{position:absolute;top:2px;inset-inline-end:6px;width:9px;height:9px;border-radius:50%;background:#F59E0B;border:2px solid var(--pri)}
+.fabs{display:none!important}
+.gmtabs{display:flex;gap:6px;margin:8px 0 12px;justify-content:center}
+.gmtabs button{flex:1;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 4px;font:inherit;font-size:13px;font-weight:700;color:var(--fg)}
+.gmtabs button[aria-pressed="true"]{background:var(--pri);color:#fff;border-color:var(--pri)}
+.whres .cd{font-size:30px;font-weight:800;letter-spacing:2px;direction:ltr;margin:2px 0}
+.whres .codebox{margin:8px auto}
+.sdays{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:12px}
+.sday{display:grid;justify-items:center;gap:3px;padding:8px 0;border-radius:12px;background:var(--tint);border:1.5px solid transparent;font-weight:800}
+.sday span{font-size:13px}.sday small{font-size:10px;color:var(--muted);font-weight:500}
+.sday.on{background:#16A34A;color:#fff}.sday.on small{color:#fff;opacity:.85}
+.sday.now{border-color:var(--orange);animation:sdp 1.4s ease-in-out infinite}
+@keyframes sdp{50%{transform:scale(1.07)}}
+.prl{display:grid;gap:8px;max-height:46vh;overflow:auto;text-align:start}
+.pri{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;background:var(--tint)}
+.pri .pe{font-size:22px}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1407,6 +1428,55 @@ function wheelSpin(){if(WH.busy||!AU)return;WH.busy=true;WH.err='';keep();
 function wheelStrip(){var u=wheelOnce();return '<button class="whstrip" data-act="wheel"><span class="fi">🎡</span><span class="pst"><b>اربح الآن مع مدار</b><small>'+(u?'ارجع باجر للفّة جديدة':'لفّة مجانية كل يوم — نقاط هدية')+'</small></span>'+(u?'':'<em class="whbadge">مجاناً</em>')+'</button>'}
 var _ps=plusStrip;plusStrip=function(){return wheelStrip()+_ps()};
 Object.assign(window.MYA,{wheel:function(){WH.res=null;WH.err='';sheet={kind:'wheel'};render()},wspin:wheelSpin,wclose:function(){sheet=null;WH.res=null}});
+
+/* ===== v23: العب واربح مع مدار + المحادثة في الشريط ===== */
+var WLAB=[['10','نقطة'],['حظ','أوفر'],['20','نقطة'],['50','نقطة'],['كارت','1000'],['100','نقطة'],['5','نقطة'],['30','نقطة']];
+WCOL=['#0B1E3C','#64748B','#0095C8','#E11D74','#D4A017','#16A34A','#7C3AED','#DC2626'];
+var WP7=[5,5,10,10,15,20,50],GM={tab:'wheel',st:null,busy:false,rot:0,res:null,err:'',load:false};
+function dayStr(o){return new Date(Date.now()+3*3600e3-(o||0)*864e5).toISOString().slice(0,10)}
+function gmDemo(){var d=LS.get('gm',{last:0,sday:'',streak:0,prizes:[]}),t=dayStr(),cur=(d.sday===t||d.sday===dayStr(1))?d.streak:0;return {can:Date.now()-d.last>=432e5,next:d.last?d.last+432e5:null,streak:cur,claimed:d.sday===t,prizes:d.prizes,_d:d}}
+function gst(){return LIVE?GM.st:gmDemo()}
+function gameLoad(){if(!AU||!LIVE||GM.st||GM.load)return;GM.load=true;api('rpc/game_status',{method:'POST',body:{}}).then(function(r){GM.load=false;GM.st={can:r.can_spin,next:r.next_at?+new Date(r.next_at):null,streak:r.streak,claimed:r.claimed_today,prizes:r.prizes||[]};if(sheet&&sheet.kind==='wheel')keep()}).catch(function(){GM.load=false;GM.st={can:true,next:null,streak:0,claimed:false,prizes:[]}})}
+wheelOnce=function(){var s=AU?gst():null;return !!(s&&!s.can)};
+wheelSVG=function(){var r=150,cx=160,cy=160,o='<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><circle cx="160" cy="160" r="156" fill="#0B1E3C"/>';
+ for(var i=0;i<8;i++){var a0=(i*45-90)*Math.PI/180,a1=((i+1)*45-90)*Math.PI/180;
+  o+='<path d="M160 160L'+(cx+r*Math.cos(a0)).toFixed(1)+' '+(cy+r*Math.sin(a0)).toFixed(1)+'A150 150 0 0 1 '+(cx+r*Math.cos(a1)).toFixed(1)+' '+(cy+r*Math.sin(a1)).toFixed(1)+'Z" fill="'+WCOL[i]+'" stroke="#fff" stroke-width="2"/>';
+  var big=i===1?16:i===4?17:27;o+='<g transform="rotate('+(i*45+22.5)+' 160 160)" fill="#fff" text-anchor="middle" font-family="inherit"><text x="160" y="'+(i===1||i===4?66:64)+'" font-weight="800" font-size="'+big+'">'+WLAB[i][0]+'</text><text x="160" y="'+(i===4?88:82)+'" font-size="'+(i===4?20:12)+'" font-weight="'+(i===4?800:400)+'" opacity="'+(i===4?1:.88)+'">'+WLAB[i][1]+'</text></g>'}
+ return o+'<circle cx="160" cy="160" r="26" fill="#fff" stroke="#F59E0B" stroke-width="5"/><text x="160" y="167" text-anchor="middle" font-weight="900" font-size="20" fill="#0B1E3C">M</text></svg>'};
+function cdTxt(ms){var s=Math.max(0,Math.ceil(ms/1000)),h=Math.floor(s/3600),m=Math.floor(s%3600/60),c=s%60;return [h,m,c].map(function(x){return (x<10?'0':'')+x}).join(':')}
+setInterval(function(){var el=document.getElementById('whcd');if(!el)return;var s=gst();if(!s||!s.next)return;var l=s.next-Date.now();if(l<=0){if(LIVE&&GM.st)GM.st.can=true;if(sheet&&sheet.kind==='wheel')keep()}else el.textContent=cdTxt(l)},1000);
+function prizeIcon(p){return p.kind==='card'?'🎁':p.kind==='points'?'⭐':'🍀'}
+function wheelTab(s){var d=GM.res,h='<div class="whbox"><div class="whptr"></div><div id="whr" class="whr" style="transform:rotate('+GM.rot+'deg)">'+wheelSVG()+'</div></div>';
+ if(d){h+='<div class="whres">'+(d.kind==='card'?'<b>🎁 ربحت كارت رصيد 1,000 د.ع!</b><div class="codebox" dir="ltr">'+esc(d.code)+'</div><small>أرسل الكود لنا على واتساب ونرسل لك الكارت</small>':d.kind==='points'?'<b>مبروك! ربحت <span class="num">'+d.points+'</span> نقطة 🎉</b><small>أُضيفت لرصيدك في مدار بلس</small>':'<b>حظ أوفر هالمرة 🍀</b><small>لفّتك الجاية بعد 12 ساعة</small>')+'</div>'+(d.kind==='card'?'<a class="btn block wabtn" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'?text='+encodeURIComponent('ربحت كارت رصيد 1000 د.ع من عجلة مدار. الكود: '+d.code)+'">'+ic('chat',20)+'استلم كارتك على واتساب</a>':'');return h}
+ if(!AU)return h+'<a class="btn block" href="#login" data-act="wclose">سجّل دخولك حتى تلف العجلة</a>';
+ if(!s)return h+'<button class="btn block" disabled>جاري التحميل…</button>';
+ if(!s.can)return h+'<div class="whres"><b>لفّتك الجاية بعد</b><div class="cd num" id="whcd">'+cdTxt((s.next||0)-Date.now())+'</div><small>العجلة تتجدد كل 12 ساعة</small></div>';
+ return h+'<button class="btn block" data-act="wspin"'+(GM.busy?' disabled':'')+'>'+(GM.busy?'تدور…':'لُفّ العجلة')+'</button>'}
+function streakTab(s){if(!AU)return '<a class="btn block" href="#login" data-act="wclose">سجّل دخولك لتبدأ سلسلتك</a>';if(!s)return '<p class="muted">جاري التحميل…</p>';
+ var st=s.streak,done=st===0?0:(s.claimed?((st-1)%7)+1:st%7),nx=WP7[s.claimed?(st%7):done],c='';
+ for(var i=0;i<7;i++)c+='<div class="sday'+(i<done?' on':'')+(!s.claimed&&i===done?' now':'')+'"><span>'+(i<done?'✓':i===6?'🎁':'+'+WP7[i])+'</span><small>يوم '+(i+1)+'</small></div>';
+ return '<p class="muted" style="margin:0 0 10px;text-align:center">افتح مدار كل يوم واستلم هديتك، وكل يوم متتالي تكبر الهدية. إذا فاتك يوم ترجع من أول.</p><div class="sdays">'+c+'</div><div class="whres"><b>سلسلتك: <span class="num">'+st+'</span> '+(st===1?'يوم':'أيام')+' 🔥</b></div>'+(s.claimed?'<button class="btn block" disabled>استلمت هدية اليوم ✓ ارجع باجر</button>':'<button class="btn block" data-act="gclaim">استلم هدية اليوم +'+nx+' نقطة</button>')}
+function prizesTab(s){if(!AU)return '<a class="btn block" href="#login" data-act="wclose">سجّل دخولك لتشوف جوائزك</a>';if(!s)return '<p class="muted">جاري التحميل…</p>';
+ return s.prizes.length?'<div class="prl">'+s.prizes.map(function(p){return '<div class="pri"><span class="pe">'+prizeIcon(p)+'</span><span style="flex:1;min-width:0"><b>'+esc(p.label)+'</b><small class="muted" style="display:block">'+new Date(p.created_at||p.at).toLocaleString('en-GB',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})+(p.code?' · <span dir="ltr">'+esc(p.code)+'</span>':'')+'</small></span>'+(p.kind==='card'?(p.status==='fulfilled'?'<span class="status">تم التسليم</span>':'<a class="chip" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'?text='+encodeURIComponent('ربحت كارت رصيد 1000 د.ع. الكود: '+p.code)+'">استلمه</a>'):'')+'</div>'}).join('')+'</div>':'<div class="empty" style="padding:20px 0;text-align:center">ما ربحت شي للآن — لُفّ العجلة! 🎡</div>'}
+sheetWheel=function(){gameLoad();var s=AU?gst():null,t=GM.tab;
+ return '<div class="sbody whbody"><h2>🎮 العب واربح مع مدار</h2><div class="gmtabs">'+[['wheel','🎡 العجلة'],['streak','🔥 سلسلتي'],['prizes','🏆 جوائزي']].map(function(x){return '<button data-act="gtab" data-t="'+x[0]+'"'+(t===x[0]?' aria-pressed="true"':'')+'>'+x[1]+'</button>'}).join('')+'</div>'+(t==='wheel'?wheelTab(s):t==='streak'?streakTab(s):prizesTab(s))+(GM.err?'<p style="color:var(--danger);text-align:center">'+esc(GM.err)+'</p>':'')+'<p class="muted" style="font-size:12px;text-align:center;margin:10px 0 0">النتائج تُحسم في السيرفر ولا يمكن التلاعب بها</p></div>'};
+function gmPrize(r){var s=gst();if(LIVE){s.can=false;s.next=Date.now()+432e5;s.prizes.unshift({label:r.label,kind:r.kind,points:r.points,code:r.code,status:r.kind==='card'?'new':'done',created_at:new Date().toISOString()})}PLS=null}
+wheelSpin=function(){if(GM.busy||!AU)return;GM.busy=true;GM.err='';GM.res=null;keep();
+ var go=function(r,after){var el=$('#whr');GM.rot=Math.ceil(GM.rot/360)*360+2160-(r.seg*45+22.5)+(Math.random()*20-10);if(el){el.style.transition='transform 4.8s cubic-bezier(.12,.7,.1,1)';el.style.transform='rotate('+GM.rot+'deg)'}
+  setTimeout(function(){GM.busy=false;GM.res=r;gmPrize(r);after&&after();keep();if(r.kind!=='none')confetti()},5000)};
+ if(!LIVE){var s=gmDemo();if(!s.can){GM.busy=false;GM.err='لفّتك الجاية بعد شوية ⏳';return keep()}var x=Math.random()*1000,sg=x<220?0:x<370?1:x<550?2:x<620?3:x<640?4:x<680?5:x<880?6:7,P=[10,0,20,50,0,100,5,30][sg],k=sg===4?'card':sg===1?'none':'points',lb=k==='card'?'كارت رصيد 1,000 د.ع':k==='none'?'حظ أوفر':P+' نقطة',cd=k==='card'?'MC-'+Math.random().toString(36).slice(2,8).toUpperCase():null;
+  go({seg:sg,kind:k,points:P,label:lb,code:cd},function(){var d=gmDemo()._d;d.last=Date.now();d.prizes.unshift({label:lb,kind:k,points:P,code:cd,status:k==='card'?'new':'done',created_at:new Date().toISOString()});LS.set('gm',d);if(P){try{PL.bal+=P;PL.led.unshift({points:P,kind:'bonus',note:'عجلة اربح مع مدار',created_at:new Date().toISOString()});LS.set('plus_demo',PL)}catch(e){}}});return}
+ api('rpc/game_spin',{method:'POST',body:{}}).then(function(r){go(r)}).catch(function(e){GM.busy=false;GM.err=e.message||'تعذّر';GM.st=null;keep()})};
+function streakClaim(){if(!AU||GM.busy)return;GM.busy=true;GM.err='';var done=function(pts,n){GM.busy=false;toast('+'+pts+' نقطة 🎁 · سلسلتك '+n+' 🔥');confetti();PLS=null;keep()};
+ if(!LIVE){var s=gmDemo(),d=s._d,t=dayStr();if(s.claimed){GM.busy=false;return}var n=s.streak+1,p=WP7[(n-1)%7];d.streak=n;d.sday=t;LS.set('gm',d);try{PL.bal+=p;PL.led.unshift({points:p,kind:'bonus',note:'سلسلة الحضور',created_at:new Date().toISOString()});LS.set('plus_demo',PL)}catch(e){}return done(p,n)}
+ api('rpc/streak_claim',{method:'POST',body:{}}).then(function(r){GM.st=null;done(r.points,r.streak)}).catch(function(e){GM.busy=false;GM.err=e.message;GM.st=null;keep()})}
+wheelStrip=function(){var s=AU?gst():null,rdy=!s||s.can||!s.claimed;return '<button class="whstrip" data-act="wheel"><span class="fi">🎮</span><span class="pst"><b>العب واربح مع مدار</b><small>عجلة كل 12 ساعة · هدية يومية · كروت رصيد</small></span>'+(rdy?'<em class="whbadge">جاهز</em>':'')+'</button>'};
+if(AU&&LIVE)setTimeout(gameLoad,800);
+Object.assign(window.MYA,{wheel:function(){GM.res=null;GM.err='';GM.tab='wheel';sheet={kind:'wheel'};render()},gtab:function(t){GM.tab=t.t;GM.res=null;GM.err='';keep()},gclaim:streakClaim,wspin:wheelSpin});
+LABEL.chat='المحادثة';
+nav=function(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'?'account':r;return '<div class="bar"><nav class="n6" aria-label="التنقل">'+['home','cats','favs','chat','orders','account'].map(function(k){if(k==='chat')return '<a href="#" data-act="chat" role="button"><span class="ib">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</span><em>'+LABEL.chat+'</em></a>';var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+'><span class="ib">'+ic(k,on?24:22)+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'};
+waFab=function(){return ''};
+document.addEventListener('click',function(e){var a=e.target.closest('a[data-act="chat"]');if(a)e.preventDefault()},true);
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
