@@ -640,7 +640,7 @@ function vAccount(){return header()+'<div class="wrap"><div class="sh" style="ma
  accountCard()+'<div class="panel nt"><b>بيانات التوصيل المحفوظة</b>'+(cust.name?'<div style="margin-top:8px">'+esc(cust.name)+' · <span dir="ltr">'+esc(cust.phone||'')+'</span><div class="muted">'+esc(cust.gov||'')+' - '+esc(cust.area||'')+' - '+esc(cust.addr||'')+'</div></div>':'<div class="muted" style="margin-top:6px">تُحفظ بياناتك بعد أول طلب.</div>')+'</div>'+
  '<button class="rrow" style="margin-top:12px" data-act="tour"><span>جولة تعريفية في المتجر</span>'+ic('spark',18)+'</button><button class="rrow" data-act="prefs"><span>اللغة والعملة</span>'+ic('globe',18)+'</button>'+installBtn()+
  '<div class="panel" style="margin-top:4px"><b>المساعدة</b><div class="muted" style="margin-top:6px">'+(S.store.whatsapp?'واتساب المتجر: <span dir="ltr">+'+esc(S.store.whatsapp)+'</span>':'لم يُضف رقم التواصل بعد.')+'</div></div>'+
- '<div class="panel muted" style="margin-top:12px;font-size:13.5px">'+(AU&&LIVE?'بياناتك وطلباتك محفوظة في حسابك على كل أجهزتك.':LIVE?'تحفظ بيانات التوصيل والطلبات على هذا الجهاز. يمكنك تتبع أي طلب برقمه ورقم هاتفك.':'تسجيل الدخول برقم الهاتف والتحقق ومزامنة الحساب بين الأجهزة تحتاج قاعدة بيانات. هذه النسخة تحفظ بياناتك على هذا الجهاز فقط. اللغة الحالية: العربية.')+'</div>'+footerHTML()+'</div>'}
+ '<div class="panel muted" style="margin-top:12px;font-size:13.5px">'+(AU&&LIVE?'بياناتك وطلباتك محفوظة في حسابك على كل أجهزتك.':LIVE?'تحفظ بيانات التوصيل والطلبات على هذا الجهاز. يمكنك تتبع أي طلب برقمه ورقم هاتفك.':'تسجيل الدخول برقم الهاتف والتحقق ومزامنة الحساب بين الأجهزة تحتاج قاعدة بيانات. هذه النسخة تحفظ بياناتك على هذا الجهاز فقط. اللغة الحالية: العربية.')+'</div>'+delAccBtn()+footerHTML()+'</div>'}
 function place(){var L=lines();if(!L.length||busy)return;var c=calc(cust.gov),dt=new Date(),
  text=function(no){var sep='\n━━━━━━━━━━━━\n';return '🧾 *فاتورة طلب — مدار*\nرقم الطلب: *'+no+'*\nالتاريخ: '+dt.toLocaleDateString('en-GB')+sep+'👤 '+cust.name+'\n📞 '+cust.phone+'\n📍 '+cust.gov+' - '+cust.area+' - '+cust.addr+(cust.land?' - '+cust.land:'')+sep+L.map(function(x,i){return (i+1)+') '+x.p.name+' ('+((storeById(x.p.store)||{}).short||'')+')\n    '+x.n+' × '+fmt(x.p.price)+' = '+fmt(x.p.price*x.n)+' د.ع'}).join('\n')+sep+'المجموع: '+fmt(c.sub)+' د.ع'+(c.d?'\nالخصم: -'+fmt(c.d)+' د.ع':'')+(cust.gift?'\n🎁 تغليف هدية'+(cust.gnote?': '+cust.gnote:''):'')+'\nالتوصيل: '+(c.f===0?'مجاني':fmt(c.f)+' د.ع')+'\n*الإجمالي: '+fmt(c.tot)+' د.ع*\n💵 الدفع: عند الاستلام'+(cust.note?'\n📝 ملاحظات: '+cust.note:'')+'\n\nشكراً لثقتكم بمدار 💛'};
  function done(no,total,title,lead){orders.unshift({no:no,date:dt.toLocaleDateString('en-GB'),items:c.n,total:total,stage:0,status:'received'});orders=orders.slice(0,30);cart={};coupon={code:'',pct:0};cstep=1;save();sheet={kind:'r',r:{title:title,no:no,lead:lead,text:text(no)}};busy=false;render();setTimeout(function(){waOpen(text(no))},900)}
@@ -1256,6 +1256,8 @@ POL.privacy={ar:['سياسة الخصوصية',['آخر تحديث: نوفمبر
  'نحتفظ ببيانات الطلبات للمدة اللازمة للمحاسبة والضمان والإرجاع وحل النزاعات، وبالمحادثات والحسابات ما دام حسابك قائماً أو حتى تطلب حذفها، ثم نحذفها أو نجعلها مجهولة الهوية.',
  '## حقوقك',
  'يحق لك طلب الاطلاع على بياناتك أو تصحيحها أو حذفها (بما فيها المحادثات والحساب)، وسحب موافقتك على الرسائل الترويجية، والاعتراض على معالجة بياناتك. أرسل طلبك عبر المحادثة أو واتساب وننفذه خلال مدة معقولة.',
+ '## حذف حسابك',
+ 'يمكنك حذف حسابك نهائياً في أي وقت من «حسابي ← حذف حسابي» داخل التطبيق، أو عبر صفحة طلب الحذف على موقعنا (delete-account.html) إن لم تستطع الدخول. عند الحذف نزيل فوراً: الحساب، نقاط مدار بلس وجوائز العجلة وسلسلة الحضور، والإحالات، ومحادثاتك مع المبيعات. تبقى سجلات الطلبات المنفّذة (الاسم والهاتف وعنوان التسليم) للمدة اللازمة للمحاسبة والضمان وحل النزاعات ثم تُحذف أو تُجعل مجهولة.',
  '## الأطفال',
  'المتجر غير موجّه لمن هم دون 18 عاماً، ونرجو أن يتم الطلب بإشراف ولي الأمر.',
  '## روابط وخدمات خارجية',
@@ -1282,6 +1284,8 @@ POL.privacy={ar:['سياسة الخصوصية',['آخر تحديث: نوفمبر
  'Encrypted connections, per-user database access rules and protected admin accounts. We keep order data as long as needed for accounting, warranty and returns, and chats and accounts until you ask us to delete them.',
  '## Your rights',
  'You may request access, correction or deletion of your data, withdraw marketing consent, and object to processing, via the sales chat or WhatsApp.',
+ '## Deleting your account',
+ 'You can permanently delete your account any time from Account → Delete my account inside the app, or via the account deletion page on our website (delete-account.html) if you cannot sign in. We immediately remove your account, Madar Plus points, wheel prizes, streak, referrals and sales chats. Records of completed orders (name, phone, delivery address) are kept only as long as needed for accounting, warranty and disputes, then deleted or anonymised.',
  '## Children and changes',
  'The store is not directed to people under 18. We may update this policy; the date above shows the latest version.',
  '## Contact',
@@ -1477,6 +1481,16 @@ LABEL.chat='المحادثة';
 nav=function(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'?'account':r;return '<div class="bar"><nav class="n6" aria-label="التنقل">'+['home','cats','favs','chat','orders','account'].map(function(k){if(k==='chat')return '<a href="#" data-act="chat" role="button"><span class="ib">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</span><em>'+LABEL.chat+'</em></a>';var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+'><span class="ib">'+ic(k,on?24:22)+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'};
 waFab=function(){return ''};
 document.addEventListener('click',function(e){var a=e.target.closest('a[data-act="chat"]');if(a)e.preventDefault()},true);
+
+/* ===== v24: حذف الحساب (متطلب Google Play) ===== */
+var DELA={step:0,busy:false,err:''};
+function delAccBtn(){if(!AU)return '';return '<div class="panel" style="margin-top:12px;border-color:#fecaca">'+(DELA.step===0?'<button class="rrow" style="color:#b91c1c;border:0;background:none;width:100%;padding:0" data-act="delacc"><span>حذف حسابي وبياناتي</span>'+ic('trash',18)+'</button>':'<b style="color:#b91c1c">حذف الحساب نهائياً؟</b><div class="muted" style="font-size:13.5px;margin:6px 0">يُحذف حسابك ونقاط مدار بلس وجوائزك ومحادثاتك فوراً ولا يمكن التراجع. تبقى سجلات الطلبات للمدة اللازمة للمحاسبة والضمان.</div>'+(DELA.err?'<div style="color:#b91c1c;font-size:13px;margin-bottom:6px">'+esc(DELA.err)+'</div>':'')+'<div style="display:flex;gap:8px"><button class="btn" style="flex:1;background:#b91c1c" data-act="delacc"'+(DELA.busy?' disabled':'')+'>'+(DELA.busy?'جاري الحذف…':'نعم، احذف حسابي')+'</button><button class="btn" style="flex:1;background:var(--tint);color:var(--fg)" data-act="delno">تراجع</button></div>')+'</div>'}
+function delAccount(){if(DELA.busy)return;if(DELA.step===0){DELA.step=1;DELA.err='';return keep()}
+ DELA.busy=true;DELA.err='';keep();
+ var fin=function(){['au','gm','plus_demo','ref','wheel_day'].forEach(function(k){LS.set(k,null)});DELA={step:0,busy:false,err:''};AU=null;myOrders=[];PLS=null;if(typeof GM!=='undefined')GM.st=null;render();toast('تم حذف حسابك وبياناتك')};
+ if(!LIVE)return setTimeout(fin,500);
+ api('rpc/delete_my_account',{method:'POST',body:{}}).then(fin).catch(function(e){DELA.busy=false;DELA.err=/function|Could not find/i.test(e.message||'')?'الخدمة غير مفعّلة بعد. تواصل معنا عبر واتساب لحذف حسابك.':(e.message||'تعذّر الحذف');keep()})}
+Object.assign(window.MYA,{delacc:delAccount,delno:function(){DELA={step:0,busy:false,err:''};keep()}});
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
