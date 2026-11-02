@@ -439,6 +439,18 @@ body{padding-block-end:150px!important}
 .fabs{opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .25s,transform .25s}
 body.fabon .fabs{opacity:1;pointer-events:auto;transform:none}
 .ifab{display:none!important}
+/* v22 wheel */
+.whstrip{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:10px 12px;border-radius:16px;border:0;text-align:start;color:#fff;background:linear-gradient(120deg,#E11D74,#F59E0B);box-shadow:0 8px 20px -8px rgba(225,29,116,.55);font:inherit}
+.whstrip .fi{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:22px;flex:none;animation:whw 3s ease-in-out infinite}
+.whstrip .pst{flex:1;min-width:0}.whstrip b{display:block;font-size:15px}.whstrip small{opacity:.92;font-size:12px}
+.whbadge{font-style:normal;background:#fff;color:#E11D74;font-weight:800;font-size:12px;padding:4px 10px;border-radius:999px}
+@keyframes whw{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(12deg)}}
+.whbody{text-align:center}
+.whbox{position:relative;width:min(78vw,300px);margin:14px auto 16px}
+.whr{width:100%;aspect-ratio:1;border-radius:50%;box-shadow:0 12px 30px -10px rgba(11,30,60,.6)}
+.whsvg{width:100%;height:100%;display:block}
+.whptr{position:absolute;top:-10px;left:50%;transform:translateX(-50%);z-index:2;width:0;height:0;border-inline:13px solid transparent;border-top:24px solid #F59E0B;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+.whres{margin:0 0 12px;padding:12px;border-radius:14px;background:var(--tint)}.whres b{display:block;font-size:17px}.whres small{color:var(--muted)}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -770,7 +782,7 @@ function sheetResult(r){var wa=S.store.whatsapp.replace(/\D/g,'');setTimeout(con
  return '<div class="sbody" style="text-align:center;padding-top:22px">'+mascot(84,1)+'<div class="ok" style="display:none"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.500l4.500 4.500L19 7"/></svg></div><h2>'+esc(r.title)+'</h2>'+(r.no?'<p>رقم الطلب <b dir="ltr">'+esc(r.no)+'</b></p>':'')+'<p class="muted" style="font-size:14px">'+esc(r.lead)+'</p>'+
  '<a class="btn block wabtn" target="_blank" rel="noopener" href="https://wa.me/'+waNum()+'?text='+encodeURIComponent(r.text)+'">'+ic('chat',20)+'أرسل الفاتورة على واتساب</a><p class="muted" style="font-size:12.5px;margin:8px 0 0">اضغط الزر لإرسال فاتورتك إلى المتجر مباشرة وتأكيد طلبك.</p>'+'<button class="btn ghost block" style="margin-top:10px" data-act="close">إغلاق</button></div>'}
 function sheetCity(){return '<div class="grab"></div><div class="sbody"><h2 style="margin-block:8px 12px">التوصيل إلى</h2>'+GOV.map(function(g){return '<button class="rrow" data-act="setcity" data-id="'+g+'" aria-pressed="'+(g===city)+'"><span>'+g+'</span>'+(g===city?ic('check',18):'')+'</button>'}).join('')+'</div>'}
-function sheetHTML(){if(!sheet&&!form)return '';var b;if(form)b=sheetForm();else if(sheet.kind==='p'){var p=prod(sheet.id);if(!p){sheet=null;return ''}b=sheetProduct(p)}else if(sheet.kind==='city')b=sheetCity();else if(sheet.kind==='prefs')b=sheetPrefs();else if(sheet.kind==='finder')b=sheetFinder();else if(sheet.kind==='ai')b=sheetAI();else if(sheet.kind==='chat')b=sheetChat();else if(sheet.kind==='img')b=sheetImg();else if(sheet.kind==='plusok')b=sheetPlusOk();else b=sheetResult(sheet.r);
+function sheetHTML(){if(!sheet&&!form)return '';var b;if(form)b=sheetForm();else if(sheet.kind==='p'){var p=prod(sheet.id);if(!p){sheet=null;return ''}b=sheetProduct(p)}else if(sheet.kind==='city')b=sheetCity();else if(sheet.kind==='prefs')b=sheetPrefs();else if(sheet.kind==='finder')b=sheetFinder();else if(sheet.kind==='ai')b=sheetAI();else if(sheet.kind==='chat')b=sheetChat();else if(sheet.kind==='img')b=sheetImg();else if(sheet.kind==='plusok')b=sheetPlusOk();else if(sheet.kind==='wheel')b=sheetWheel();else b=sheetResult(sheet.r);
  return '<div class="over" data-act="ov"><div class="sheet" role="dialog" aria-modal="true">'+b+'</div></div>'}
 function nav(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'?'account':r;return '<div class="bar"><nav aria-label="التنقل">'+['home','cats','favs','orders','account'].map(function(k){return '<a href="#'+k+'"'+(cur===k?' aria-current="page"':'')+'><span class="ib">'+ic(k,22)+'</span>'+LABEL[k]+'</a>'}).join('')+'</nav></div>'}
 function render(){if(loading||loadErr){$('#app').innerHTML=loading?'<div class="empty" style="padding-top:120px">'+ORBIT+'جاري التحميل...</div>':'<div class="empty" style="padding-top:120px">تعذر الاتصال بالمتجر<button class="btn" data-act="retry">إعادة المحاولة</button><span class="note">'+esc(loadErr)+'</span></div>';tr($('#app'));return}var r=route();if(r==='store'&&curStore===null){curStore='all'}var v={home:vHome,cats:vCats,store:vStore,favs:vFavs,orders:vOrders,account:vAccount,cart:vCart,business:vBusiness,admin:vAdmin,policy:vPolicy,login:vLogin,plus:vPlus}[r]();var cta=ctaBar();
@@ -1368,6 +1380,33 @@ function plusStrip(){return '<a class="plstrip" href="#plus"><span class="fi">'+
 var _fh2=footerHTML;footerHTML=function(){return _fh2()+'<div style="text-align:center;margin-top:10px"><button class="chip" data-act="tour">جولة تعريفية في المتجر</button></div>'};
 function fabSync(){var on=(window.scrollY>360)||route()!=='home';document.body.classList.toggle('fabon',on)}
 window.addEventListener('scroll',fabSync,{passive:true});window.addEventListener('hashchange',function(){setTimeout(fabSync,50)});setInterval(fabSync,1200);
+
+/* ===== v22: عجلة اربح الآن ===== */
+var WSEG=[5,0,10,20,15,50,30,100],WCOL=['#0B1E3C','#F59E0B','#0095C8','#E11D74','#0B1E3C','#16A34A','#7C3AED','#DC2626'];
+var WH={busy:false,rot:0,res:null,can:null,err:''};
+function wheelSVG(){var r=150,cx=160,cy=160,o='<svg viewBox="0 0 320 320" class="whsvg" aria-hidden="true"><circle cx="160" cy="160" r="156" fill="#0B1E3C"/>';
+ for(var i=0;i<8;i++){var a0=(i*45-90)*Math.PI/180,a1=((i+1)*45-90)*Math.PI/180,x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+  o+='<path d="M160 160L'+x0.toFixed(1)+' '+y0.toFixed(1)+'A150 150 0 0 1 '+x1.toFixed(1)+' '+y1.toFixed(1)+'Z" fill="'+WCOL[i]+'" stroke="#fff" stroke-width="2"/>';
+  var m=i*45+22.5;o+='<g transform="rotate('+m+' 160 160)"><text x="160" y="62" text-anchor="middle" fill="#fff" font-weight="800" font-size="'+(WSEG[i]?26:15)+'" font-family="inherit">'+(WSEG[i]?WSEG[i]:'حظ أوفر')+'</text>'+(WSEG[i]?'<text x="160" y="82" text-anchor="middle" fill="#fff" opacity=".85" font-size="12" font-family="inherit">نقطة</text>':'')+'</g>'}
+ return o+'<circle cx="160" cy="160" r="26" fill="#fff" stroke="#F59E0B" stroke-width="5"/><text x="160" y="167" text-anchor="middle" font-weight="900" font-size="20" fill="#0B1E3C">M</text></svg>'}
+function wheelLoad(){if(!AU||!LIVE||WH.can!==null)return;api('rpc/wheel_status',{method:'POST',body:{}}).then(function(r){WH.can=!!r.can_spin;if(sheet&&sheet.kind==='wheel')keep()}).catch(function(){WH.can=true})}
+function wheelOnce(){if(LIVE)return WH.can===false;return LS.get('wheel_day','')===new Date().toISOString().slice(0,10)}
+function sheetWheel(){wheelLoad();var done=WH.res,used=wheelOnce()&&!done;
+ return '<div class="sbody whbody"><h2>🎡 اربح الآن مع مدار</h2><p class="muted" style="margin-top:0">لفّة مجانية كل يوم — النقاط تنضاف لرصيد مدار بلس مباشرة.</p>'+
+ '<div class="whbox"><div class="whptr"></div><div id="whr" class="whr" style="transform:rotate('+WH.rot+'deg)">'+wheelSVG()+'</div></div>'+
+ (done?'<div class="whres">'+(done.points>0?'<b>مبروك! ربحت <span class="num">'+done.points+'</span> نقطة 🎉</b><small>أُضيفت لرصيدك في مدار بلس</small>':'<b>حظ أوفر هالمرة 😅</b><small>ارجع باجر ولفّ من جديد</small>')+'</div><a class="btn block" href="#plus" data-act="wclose">شوف رصيدي ومكافآتي</a>':
+  (!AU?'<a class="btn block" href="#login" data-act="wclose">سجّل دخولك حتى تلف العجلة</a>':
+   used?'<div class="whres"><b>استخدمت لفّتك اليوم</b><small>ارجع باجر لفّة جديدة 🎡</small></div>':
+   '<button class="btn block" data-act="wspin"'+(WH.busy?' disabled':'')+'>'+(WH.busy?'تدور…':'لُفّ العجلة')+'</button>'))+
+ (WH.err?'<p class="muted" style="color:var(--danger);text-align:center">'+esc(WH.err)+'</p>':'')+'<p class="muted" style="font-size:12px;text-align:center;margin-bottom:0">لفّة واحدة يومياً لكل حساب · النتيجة تُحسم في السيرفر</p></div>'}
+function wheelSpin(){if(WH.busy||!AU)return;WH.busy=true;WH.err='';keep();
+ var go=function(seg,pts,after){var el=$('#whr');WH.rot=Math.ceil(WH.rot/360)*360+360*6-(seg*45+22.5)+(Math.random()*20-10);if(el){el.style.transition='transform 4.8s cubic-bezier(.12,.7,.1,1)';el.style.transform='rotate('+WH.rot+'deg)'}
+  setTimeout(function(){WH.busy=false;WH.res={points:pts};WH.can=false;PLS=null;after&&after();keep();if(pts>0)confetti()},5000)};
+ if(!LIVE){if(wheelOnce()){WH.busy=false;WH.err='استخدمت لفّتك اليوم';return keep()}var r=Math.random()*100,seg=r<28?0:r<40?1:r<64?2:r<74?3:r<88?4:r<94?5:r<99?6:7;LS.set('wheel_day',new Date().toISOString().slice(0,10));go(seg,WSEG[seg],function(){try{if(WSEG[seg]&&typeof PL!=='undefined'){PL.bal+=WSEG[seg];PL.led.unshift({points:WSEG[seg],kind:'bonus',note:'عجلة اربح الآن',created_at:new Date().toISOString()});LS.set('plus_demo',PL)}}catch(e){}});return}
+ api('rpc/wheel_spin',{method:'POST',body:{}}).then(function(r){go(r.seg,r.points)}).catch(function(e){WH.busy=false;WH.err=e.message||'تعذّر';if(/اليوم/.test(WH.err))WH.can=false;keep()})}
+function wheelStrip(){var u=wheelOnce();return '<button class="whstrip" data-act="wheel"><span class="fi">🎡</span><span class="pst"><b>اربح الآن مع مدار</b><small>'+(u?'ارجع باجر للفّة جديدة':'لفّة مجانية كل يوم — نقاط هدية')+'</small></span>'+(u?'':'<em class="whbadge">مجاناً</em>')+'</button>'}
+var _ps=plusStrip;plusStrip=function(){return wheelStrip()+_ps()};
+Object.assign(window.MYA,{wheel:function(){WH.res=null;WH.err='';sheet={kind:'wheel'};render()},wspin:wheelSpin,wclose:function(){sheet=null;WH.res=null}});
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
