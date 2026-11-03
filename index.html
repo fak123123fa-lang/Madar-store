@@ -612,6 +612,11 @@ body.hascta .mini{bottom:150px}
 .cbt{padding:11px 14px!important}.cbt b{font-size:17px!important}
 .scc .sci.imgc{padding:0!important;overflow:hidden}.scc .sci.imgc img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
 .cbg .cbimg{width:84px;height:84px;object-fit:cover;border-radius:18px;border:2px solid rgba(255,255,255,.7);box-shadow:0 8px 18px -8px rgba(0,0,0,.5)}
+.sbg .sbimg{width:104px;height:104px;object-fit:cover;border-radius:20px;border:3px solid rgba(255,255,255,.75);box-shadow:0 10px 22px -10px rgba(0,0,0,.55);display:block}
+.ctt{position:relative;overflow:hidden}
+.ctt .cttimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.ctt:has(.cttimg)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.65));z-index:1}
+.ctt:has(.cttimg) b{position:relative;z-index:2;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1826,6 +1831,10 @@ var _sc=stCats;stCats=function(s){var h=_sc(s);return h.replace(/<button class="
 })();
 /* blk24: صور داخل بطاقات الأقسام */
 (function(){var _c=cbn;cbn=function(color,title,sub,cta,attrs,big){var m=/data-cat="([^"]+)"/.exec(attrs||''),im=null;if(/data-id="beauty"/.test(attrs||'')){im=m&&m[1]!=='offers'?window.CIMG[m[1]]:(m?null:'redglasses')}if(im)big='<img class="cbimg" src="img/'+im+'_t.webp" alt="" loading="lazy">';return _c(color,title,sub,cta,attrs,big)}})();
+/* blk25: صور في بانر المتجر وبلاطات الأقسام بالرئيسية */
+(function(){var BB={beauty:'mask'};
+var _sb=storeBanner;storeBanner=function(s){var h=_sb(s);if(BB[s.id])h=h.replace(/<span class="sbg">[\s\S]*?<\/span><\/button>$/,'<span class="sbg"><img class="sbimg" src="img/'+BB[s.id]+'_t.webp" alt="" loading="lazy"></span></button>');return h};
+var _ct=catTiles;catTiles=function(s){var h=_ct(s);if(s.id!=='beauty')return h;return h.replace(/(<button class="ctt[^"]*" data-act="store" data-id="beauty" data-cat="([^"]+)"[^>]*>)<span class="cti">[\s\S]*?<\/span>/g,function(m,b,id){return window.CIMG[id]?b+'<img class="cttimg" src="img/'+window.CIMG[id]+'_t.webp" alt="" loading="lazy">':m})}})();
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
