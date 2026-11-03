@@ -617,6 +617,7 @@ body.hascta .mini{bottom:150px}
 .ctt .cttimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .ctt:has(.cttimg)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.65));z-index:1}
 .ctt:has(.cttimg) b{position:relative;z-index:2;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+.cic.pho{padding:0;overflow:hidden;border:3px solid #fff;box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}.cic.pho img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1835,6 +1836,8 @@ var _sc=stCats;stCats=function(s){var h=_sc(s);return h.replace(/<button class="
 (function(){var BB={beauty:'mask'};
 var _sb=storeBanner;storeBanner=function(s){var h=_sb(s);if(BB[s.id])h=h.replace(/<span class="sbg">[\s\S]*?<\/span><\/button>$/,'<span class="sbg"><img class="sbimg" src="img/'+BB[s.id]+'_t.webp" alt="" loading="lazy"></span></button>');return h};
 var _ct=catTiles;catTiles=function(s){var h=_ct(s);if(s.id!=='beauty')return h;return h.replace(/(<button class="ctt[^"]*" data-act="store" data-id="beauty" data-cat="([^"]+)"[^>]*>)<span class="cti">[\s\S]*?<\/span>/g,function(m,b,id){return window.CIMG[id]?b+'<img class="cttimg" src="img/'+window.CIMG[id]+'_t.webp" alt="" loading="lazy">':m})}})();
+/* blk26: صور دائرية في أيقونات الأقسام */
+(function(){var _c=circ;circ=function(color,g,label,attrs){var m=/data-id="beauty" data-cat="([^"]+)"/.exec(attrs||''),im=m&&window.CIMG[m[1]];if(im){var h=_c(color,'<img src="img/'+im+'_t.webp" alt="" loading="lazy">',label,attrs);return h.replace('class="cic"','class="cic pho"')}return _c(color,g,label,attrs)}})();
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
