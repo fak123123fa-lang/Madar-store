@@ -596,10 +596,10 @@ body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
 .bar nav.n7 a[aria-current="page"] .ib{width:44px!important}
 .cbadge{position:absolute;top:-4px;inset-inline-end:-2px;min-width:17px;height:17px;border-radius:9px;background:#f97316;color:#fff;font:800 10px/17px system-ui;text-align:center;padding-inline:4px;font-style:normal;box-shadow:0 0 0 2px var(--bar-bg,#0b1e3c)}
 /* v33 nav5 + mini toast */
-.bar nav.n5{grid-template-columns:repeat(5,1fr)!important;padding-inline:4px!important}
-.bar nav.n5 a em{font-size:11px!important}
-.bar nav.n5 a .ib{width:44px!important;position:relative}
-.bar nav.n5 a[aria-current="page"] .ib{width:54px!important}
+.bar nav.n5{grid-template-columns:repeat(6,1fr)!important;padding-inline:2px!important}
+.bar nav.n5 a em{font-size:10px!important;white-space:nowrap}
+.bar nav.n5 a .ib{width:38px!important;position:relative}
+.bar nav.n5 a[aria-current="page"] .ib{width:46px!important}
 .bar nav.n5 a.cartk .ib{background:linear-gradient(145deg,#ff9a2e,#f97316)!important;color:#fff!important;border-radius:18px;box-shadow:0 8px 16px -6px rgba(249,115,22,.7);transform:translateY(-6px)}
 .bar nav.n5 a.cartk em{margin-top:-4px}
 .mini{position:fixed;left:50%;bottom:104px;transform:translate(-50%,8px);z-index:90;background:#16a34a;color:#fff;font:700 12px 'Readex Pro',system-ui;padding:5px 12px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;white-space:nowrap}
@@ -1779,9 +1779,9 @@ function LNAME(){return lang==='en'?'English':lang==='ku'?'کوردی':'العر
 sheetPrefs=function(){function row(a,id,t,on){return '<button class="rrow" data-act="'+a+'" data-id="'+id+'" aria-pressed="'+on+'"><span>'+t+'</span>'+(on?ic('check',18):'')+'</button>'}
  return '<div class="grab"></div><div class="sbody"><h2 style="margin-block:8px 10px">اللغة</h2>'+row('setlang','ar','العربية',lang==='ar')+row('setlang','en','English',lang==='en')+row('setlang','ku','کوردی (سۆرانی)',lang==='ku')+'<h2 style="margin-block:14px 10px">العملة</h2>'+row('setcur','IQD','الدينار العراقي (IQD)',cur==='IQD')+row('setcur','USD','الدولار الأمريكي (USD)',cur==='USD')+'<p class="note">سعر الصرف المعتمد في المتجر: 1 USD = <span class="num">'+fmt(usdR())+'</span> IQD</p></div>'};
 /* شريط سفلي: 5 أيقونات فقط */
-nav=function(r){var cur=r==='store'||r==='business'||r==='favs'?'cats':r==='admin'||r==='login'||r==='plus'||r==='orders'?'account':r;return '<div class="bar"><nav class="n5" aria-label="التنقل">'+['home','cats','cart','chat','account'].map(function(k){if(k==='chat')return '<a href="#" data-act="chat" role="button"><span class="ib">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</span><em>'+LABEL.chat+'</em></a>';var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+(k==='cart'?' class="cartk"':'')+'><span class="ib">'+ic(k,on?24:22)+(k==='cart'&&cartCount()?'<i class="cbadge'+(bump?' bump':'')+'">'+cartCount()+'</i>':'')+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'};
+nav=function(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'||r==='orders'?'account':r;return '<div class="bar"><nav class="n5" aria-label="التنقل">'+['home','cats','favs','cart','chat','account'].map(function(k){if(k==='chat')return '<a href="#" data-act="chat" role="button"><span class="ib">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</span><em>'+LABEL.chat+'</em></a>';var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+(k==='cart'?' class="cartk"':'')+'><span class="ib">'+ic(k,on?24:22)+(k==='cart'&&cartCount()?'<i class="cbadge'+(bump?' bump':'')+'">'+cartCount()+'</i>':'')+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'};
 /* المفضلة وطلباتي داخل حسابي */
-(function(){var _va=vAccount;vAccount=function(){var h=_va(),g=lgrp([{href:'#favs',ic:ic('favs',24),t:'المفضلة',sub:favs.length?String(favs.length):''},{href:'#orders',ic:ic('orders',24),t:'طلباتي',sub:orders.length?String(orders.length):''}]);return h.replace(/<div class="lgp"[^>]*>(?=<button class="lrow" data-act="prefs")/,g+'$&')}})();
+(function(){var _va=vAccount;vAccount=function(){var h=_va(),g=lgrp([{href:'#orders',ic:ic('orders',24),t:'طلباتي',sub:orders.length?String(orders.length):''}]);return h.replace(/<div class="lgp"[^>]*>(?=<button class="lrow" data-act="prefs")/,g+'$&')}})();
 /* تنبيه صغير جداً فوق السلة بدل الشريط الكبير */
 (function(){var _t=toast,mt=null;toast=function(m){if(/^أضفناه لسلتك|^أضيف إلى السلة/.test(String(m))){var e=document.getElementById('mini');if(!e){e=document.createElement('div');e.id='mini';e.setAttribute('aria-live','polite');document.body.appendChild(e)}e.textContent='✓ '+(lang==='en'?'Added':lang==='ku'?'زیادکرا':'أُضيف');e.className='mini on';clearTimeout(mt);mt=setTimeout(function(){e.className='mini'},1100);return}return _t(m)}})();
 
