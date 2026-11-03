@@ -537,6 +537,24 @@ body.fabon .fabs{opacity:1;pointer-events:auto;transform:none}
 .lrow .lb{font-style:normal;background:#fee2e2;color:#dc2626;font-weight:700;font-size:12.5px;border-radius:999px;padding:3px 12px}
 .lrow .lch{color:var(--muted);display:grid}
 .lwrap{padding-bottom:120px!important}.lver{text-align:center;color:var(--muted);font-size:15px;margin:22px 0 8px}
+/* v28 */
+html{-webkit-tap-highlight-color:transparent}
+body:has(.stk) .hd{position:static!important}
+.stk{position:sticky;top:env(safe-area-inset-top,0px);z-index:36;background:color-mix(in srgb,var(--bg) 96%,transparent);backdrop-filter:blur(10px);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:6px max(16px,env(safe-area-inset-left,0px)) 2px}
+.stk .search{margin-block:0 !important}.stk .ftabs{margin-block:6px 4px!important}
+.sbk{display:none;border:0;background:none;color:var(--fg);padding:0 2px}
+body.sf .sbk{display:grid}
+body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
+.cirg{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);gap:12px 8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:4px max(16px,env(safe-area-inset-left,0px)) 6px;scroll-snap-type:x proximity}
+.cirg .cir{scroll-snap-align:start;width:74px}
+.cirx{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 6px}
+.cir{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:6px;font:inherit;color:var(--fg);cursor:pointer;padding:0;min-width:0}
+.cic{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--c) 55%,#fff),var(--c) 70%);box-shadow:0 8px 14px -8px var(--c),inset 0 -4px 8px rgba(0,0,0,.15)}
+.cil{font-size:12px;line-height:1.35;text-align:center;font-weight:600;max-width:74px}
+.fsec{content-visibility:auto;contain-intrinsic-size:auto 560px}
+.deal{background:linear-gradient(100deg,#7f1d1d,#dc2626)!important;border:0!important;color:#fff!important;border-radius:16px!important;margin-top:10px!important;padding:12px 16px!important}
+.deal b{font-size:24px;letter-spacing:2px}.deal span{font-weight:700}
+.hrail,.rail,.cirg,.ftabs,.stgrid{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1623,6 +1641,22 @@ vAccount=function(){var wa='https://wa.me/'+waNum()+'?text='+encodeURIComponent(
  o.push(lgrp([{act:'install',ic:ic('home',24),t:'أيقونة التطبيق'}]));
  o.push(delAccBtn()+'<div class="lver">الإصدار 1.0.0</div></div>');return o.join('')};
 Object.assign(window.MYA,{notif:function(){toast('الإشعارات ستتوفر قريباً')}});
+
+/* ===== v28: سلوك الفيديو: بحث وتبويبات ثابتة + أقسام دائرية + شاشة استكشاف ===== */
+var SF=false,_dbN=dealBanner;dealBanner=function(){return ''};
+function circ(color,glyphHTML,label,attrs){return '<button class="cir" '+attrs+' style="--c:'+color+'"><span class="cic">'+glyphHTML+'</span><span class="cil">'+esc(label)+'</span></button>'}
+function circItems(){var o=[circ('#dc2626',ic('tag',30),'التخفيضات','data-act="store" data-id="all" data-cat="offers"'),circ('#F97316',ic('spark',30),'وصل حديثاً','data-act="store" data-id="all"')];
+ S.stores.filter(function(s){return s.live}).forEach(function(s){S.cats.filter(function(c){return c.store===s.id&&live().some(function(p){return p.cat===c.id})}).forEach(function(c){o.push(circ(stColor(s),ic(iconOf(c.id),30),c.name,'data-act="store" data-id="'+s.id+'" data-cat="'+c.id+'"'))})});return o}
+function catCircles(){var it=circItems();return '<div class="stwrap"><div class="fhd" style="margin:14px 0 6px"><h2>الأقسام</h2></div><div class="cirg">'+it.join('')+'</div></div>'}
+function exploreHTML(){return '<div class="fhd" style="margin:16px 0 8px"><h2>استكشف الأقسام</h2></div><div class="cirx">'+circItems().join('')+'</div>'}
+var _hb13=homeBody;homeBody=function(){if(!q.trim()&&SF)return exploreHTML();return _hb13()};
+function setSF(on){SF=on;document.body.classList.toggle('sf',on);var r=$('#results');if(r&&!q.trim()){r.innerHTML=homeBody();tr(r)}}
+document.addEventListener('focusin',function(e){if(e.target&&e.target.id==='q'&&route()==='home'&&!SF)setSF(true)});
+window.addEventListener('hashchange',function(){if(SF){SF=false;document.body.classList.remove('sf')}});
+vHome=function(){var s=S.store;return (s.announce?'<div class="announce">'+esc(s.announce)+'</div>':'')+header()+'<div class="wrap"><button class="addr" data-act="city">'+ic('pin',18)+'<span class="gtxt">'+greetShort()+'</span><span>· التوصيل إلى</span><b>'+esc(city)+'</b><span class="grow"></span>'+ic('chev',16)+'</button>'+
+ '<div class="stk"><label class="search"><button type="button" class="sbk" data-act="sback" aria-label="رجوع">'+ic(lang==='en'?'back':'next',20)+'</button>'+ic('search',20)+'<input id="q" type="search" placeholder="ابحث عن منتج أو متجر" value="'+esc(q)+'" aria-label="بحث"><button type="button" class="cambt aib2" data-act="ai" aria-label="مدار الذكي">'+ic('wand',19)+'</button><button type="button" class="cambt" data-act="imgs" aria-label="بحث بالصورة">'+svgCam(19)+'</button></label>'+ftabs()+'</div>'+
+ '<div class="hmain">'+aiCards()+_dbN()+heroBlock()+catCircles()+'<div class="strips">'+plusStrip()+'</div>'+brandStrip()+'</div><div id="results">'+homeBody()+'</div></div>'};
+Object.assign(window.MYA,{sback:function(){var i=$('#q');if(i){i.value='';i.blur()}q='';SF=false;document.body.classList.remove('sf');render()}});
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
