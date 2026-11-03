@@ -589,6 +589,12 @@ body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
 .cn{font:800 17px 'Readex Pro',system-ui;line-height:1}
 @media(prefers-reduced-motion:reduce){.addb::after,.fplus::after{animation:none}}
 .addb[disabled],.fplus:disabled{background:#cbd5e1!important;box-shadow:none!important}.addb[disabled]::after,.fplus:disabled::after{display:none}
+/* v32 nav7 + cart badge */
+.bar nav.n7{grid-template-columns:repeat(7,1fr)!important;padding-inline:0!important}
+.bar nav.n7 a em{font-size:9.5px!important;white-space:nowrap}
+.bar nav.n7 a .ib{width:36px!important;position:relative}
+.bar nav.n7 a[aria-current="page"] .ib{width:44px!important}
+.cbadge{position:absolute;top:-4px;inset-inline-end:-2px;min-width:17px;height:17px;border-radius:9px;background:#f97316;color:#fff;font:800 10px/17px system-ui;text-align:center;padding-inline:4px;font-style:normal;box-shadow:0 0 0 2px var(--bar-bg,#0b1e3c)}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1714,6 +1720,38 @@ window.addEventListener('hashchange',function(){if(route()!=='store')SHOWALL=fal
 function markCart(){try{document.querySelectorAll('[data-act="add"][data-id]').forEach(function(b){var n=cart[b.dataset.id]||0;if(n>0&&!b.disabled){b.classList.add('incart');b.innerHTML='<span class="cn">'+n+'</span>'}})}catch(e){}}
 var _r16=render;render=function(){var x=_r16.apply(this,arguments);markCart();return x};
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act="add"]');if(b){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}},true);
+
+/* ===== v32: السلة في الشريط السفلي + استمارة التاجر ===== */
+LABEL.cart='السلة';
+var _h17=header;header=function(){return _h17().replace(/<a class="iconbtn" href="#cart"[\s\S]*?<\/a>/,'')};
+nav=function(r){var cur=r==='store'||r==='business'?'cats':r==='admin'||r==='login'||r==='plus'?'account':r;return '<div class="bar"><nav class="n7" aria-label="التنقل">'+['home','cats','favs','cart','chat','orders','account'].map(function(k){if(k==='chat')return '<a href="#" data-act="chat" role="button"><span class="ib">'+ic('chat',22)+(CH.dot?'<i class="chdot"></i>':'')+'</span><em>'+LABEL.chat+'</em></a>';var on=cur===k;return '<a href="#'+k+'"'+(on?' aria-current="page"':'')+'><span class="ib">'+ic(k,on?24:22)+(k==='cart'&&cartCount()?'<i class="cbadge'+(bump?' bump':'')+'">'+cartCount()+'</i>':'')+'</span><em>'+LABEL[k]+'</em></a>'}).join('')+'</nav></div>'};
+var MR={done:false,busy:false,err:'',d:{}};
+var MTYPES=['تاجر جملة','تاجر مفرد (محل)','بيع أونلاين','مصنّع / وكيل شركة','مستورد','أخرى'];
+function sheetMerchant(){var d=MR.d;
+ if(MR.done)return '<div class="grab"></div><div class="sbody" style="text-align:center;padding-block:20px"><div style="font-size:54px">🤝</div><h2 style="margin:8px 0">وصلنا طلبك</h2><p class="muted" style="line-height:1.8">سنراجع معلوماتك ونتواصل معك قريباً. للتسريع أرسلها لنا على واتساب أيضاً:</p><a class="btn block wabtn" target="_blank" rel="noopener" href="'+MR.wa+'">'+ic('chat',20)+'تابع على واتساب</a><button class="btn ghost block" style="margin-top:8px" data-act="close">إغلاق</button></div>';
+ function f(id,l,v,ph,ex){return '<label>'+l+'<input id="'+id+'" value="'+esc(v||'')+'" placeholder="'+(ph||'')+'" '+(ex||'')+'></label>'}
+ return '<div class="grab"></div><div class="sbody"><h2 style="margin-block:8px 4px">صِر تاجراً مع مدار</h2><p class="muted" style="margin:0 0 10px;font-size:13.5px">املأ المعلومات وسنتواصل معك لنعرض عليك الشراكة.</p><div class="form" id="mrf">'+
+  f('m_name','الاسم',d.name||(AU&&AU.name)||'')+f('m_phone','رقم الهاتف',d.phone||'','07XXXXXXXXX','dir="ltr" inputmode="tel"')+
+  '<div class="two"><label>المدينة<select id="m_city"><option value="">اختر</option>'+GOV.map(function(g){return '<option'+((d.city||city)===g?' selected':'')+'>'+g+'</option>'}).join('')+'</select></label><label>نوع التجارة<select id="m_type"><option value="">اختر</option>'+MTYPES.map(function(t){return '<option'+(d.type===t?' selected':'')+'>'+t+'</option>'}).join('')+'</select></label></div>'+
+  f('m_store','اسم المحل أو الشركة (اختياري)',d.store||'')+
+  '<label>ماذا تبيع؟<textarea id="m_products" rows="2" placeholder="مثال: مستحضرات تجميل، إكسسوارات هواتف...">'+esc(d.products||'')+'</textarea></label>'+
+  f('m_volume','حجم التجارة التقريبي (اختياري)',d.volume||'','مثال: 50 قطعة شهرياً')+
+  '<label>ملاحظات (اختياري)<textarea id="m_notes" rows="2">'+esc(d.notes||'')+'</textarea></label>'+
+  (MR.err?'<div class="err">'+esc(MR.err)+'</div>':'')+
+  '<button class="btn block" data-act="mrsend"'+(MR.busy?' disabled':'')+'>'+(MR.busy?'جاري الإرسال…':'إرسال الطلب')+'</button></div></div>'};
+var _sh17=sheetHTML;sheetHTML=function(){if(sheet&&sheet.kind==='merchant'&&!form){return '<div class="over" data-act="ov"><div class="sheet" role="dialog" aria-modal="true">'+sheetMerchant()+'</div></div>'}return _sh17()};
+function mrVal(id){var e=document.getElementById(id);return e?String(e.value||'').trim():''}
+Object.assign(window.MYA,{
+ merchant:function(){MR={done:false,busy:false,err:'',d:{}};sheet={kind:'merchant'};keep()},
+ mrsend:function(){if(MR.busy)return;var d={name:mrVal('m_name'),phone:mrVal('m_phone'),city:mrVal('m_city'),type:mrVal('m_type'),store:mrVal('m_store'),products:mrVal('m_products'),volume:mrVal('m_volume'),notes:mrVal('m_notes')};MR.d=d;
+  if(d.name.length<2){MR.err='اكتب اسمك';return keep()}if(!/^0?7\d{9}$/.test(d.phone.replace(/\D/g,'').replace(/^964/,'0'))){MR.err='رقم الهاتف غير صحيح (مثال 07812345678)';return keep()}if(d.products.length<3){MR.err='اكتب ما تبيعه';return keep()}
+  var msg='طلب تاجر جديد%0A'.replace('%0A','\n')+'الاسم: '+d.name+'\nالهاتف: '+d.phone+'\nالمدينة: '+(d.city||'-')+'\nنوع التجارة: '+(d.type||'-')+'\nالمتجر: '+(d.store||'-')+'\nماذا يبيع: '+d.products+'\nالحجم: '+(d.volume||'-')+'\nملاحظات: '+(d.notes||'لا توجد');
+  MR.wa='https://wa.me/'+waNum()+'?text='+encodeURIComponent(msg);MR.err='';
+  if(!LIVE){MR.done=true;return keep()}
+  MR.busy=true;keep();
+  api('rpc/submit_merchant_request',{method:'POST',body:{p_name:d.name,p_phone:d.phone,p_city:d.city,p_type:d.type,p_store:d.store,p_products:d.products,p_volume:d.volume,p_notes:d.notes}}).then(function(){MR.busy=false;MR.done=true;keep()}).catch(function(e){MR.busy=false;MR.err=(e&&e.message)||'تعذّر الإرسال، حاول مجدداً';keep()})}
+});
+(function(){var _va=vAccount;vAccount=function(){return _va().replace(/<a class="lrow"[^>]*href="https:\/\/wa\.me[^"]*"[^>]*><span class="li">([\s\S]*?)<\/span><span class="lt"><b>صِر تاجراً مع مدار<\/b>/,'<button class="lrow" data-act="merchant"><span class="li">$1</span><span class="lt"><b>صِر تاجراً مع مدار</b>').replace(/(<b>صِر تاجراً مع مدار<\/b>[\s\S]*?<span class="lch">[\s\S]*?<\/span>)<\/a>/,'$1</button>')}})();
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
