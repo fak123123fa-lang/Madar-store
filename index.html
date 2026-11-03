@@ -574,7 +574,22 @@ body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
 .ctg .ct small{display:none!important}
 .ctg .ct.on{border-color:var(--orange)!important;background:color-mix(in srgb,var(--orange) 10%,var(--surface))!important}
 .sv{padding:12px 14px!important}.sv .svi{transform:scale(.7);transform-origin:center}
-.pcode{font:700 11px monospace;direction:ltr;display:inline-block;background:var(--tint);color:var(--pri);border-radius:6px;padding:1px 6px}</style>
+.pcode{font:700 11px monospace;direction:ltr;display:inline-block;background:var(--tint);color:var(--pri);border-radius:6px;padding:1px 6px}/* v31 prominent add button */
+.addb,.fplus{background:linear-gradient(145deg,#ff9a2e,#f97316)!important;color:#fff!important;border:0!important;box-shadow:0 8px 16px -6px rgba(249,115,22,.7),inset 0 1px 0 rgba(255,255,255,.35)!important}.addb{position:relative}.fplus{position:absolute!important}
+.addb{width:46px!important;height:46px!important;border-radius:50%!important}
+.fplus{width:42px!important;height:42px!important;bottom:10px!important;inset-inline-start:10px!important}
+.addb svg,.fplus svg{width:24px!important;height:24px!important;stroke-width:3!important}
+.addb::after,.fplus::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid #f97316;opacity:0;pointer-events:none;animation:addring 2.2s ease-out 1.2s 3}
+@keyframes addring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+.addb:active,.fplus:active{transform:scale(.86)}
+.addb.pop,.fplus.pop{animation:addpop .35s ease}
+@keyframes addpop{0%{transform:scale(1)}40%{transform:scale(1.25)}100%{transform:scale(1)}}
+.addb.incart,.fplus.incart{background:linear-gradient(145deg,#22c55e,#16a34a)!important;box-shadow:0 8px 16px -6px rgba(22,163,74,.7)!important}
+.addb.incart::after,.fplus.incart::after{display:none}
+.cn{font:800 17px 'Readex Pro',system-ui;line-height:1}
+@media(prefers-reduced-motion:reduce){.addb::after,.fplus::after{animation:none}}
+.addb[disabled],.fplus:disabled{background:#cbd5e1!important;box-shadow:none!important}.addb[disabled]::after,.fplus:disabled::after{display:none}
+</style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
 <script>window.MADAR_LIVE=true</script>
@@ -1694,6 +1709,11 @@ vStore=function(){var s=storeById(curStore);if(!stHome()&&!(s&&s.live&&curStore!
  return header()+'<div class="wrap"><label class="search" style="margin:12px 0 4px">'+ic('search',20)+'<input id="sq" type="search" placeholder="ابحث في '+esc(s.short||s.name)+'" value="'+esc(sq)+'" aria-label="بحث"></label><div id="sres">'+sresHTML()+'</div></div>'};
 Object.assign(window.MYA,{smore:function(d){SHOWALL=true;render();window.scrollTo(0,0)},sbrand:function(d){goStore(curStore,'all',d.id)}});
 window.addEventListener('hashchange',function(){if(route()!=='store')SHOWALL=false});
+
+/* ===== v31: زر الإضافة للسلة بارز ===== */
+function markCart(){try{document.querySelectorAll('[data-act="add"][data-id]').forEach(function(b){var n=cart[b.dataset.id]||0;if(n>0&&!b.disabled){b.classList.add('incart');b.innerHTML='<span class="cn">'+n+'</span>'}})}catch(e){}}
+var _r16=render;render=function(){var x=_r16.apply(this,arguments);markCart();return x};
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act="add"]');if(b){b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop')}},true);
 
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
