@@ -1803,6 +1803,8 @@ trTxt=function(s){var k=s.trim();if(!k)return s;var m=k.match(/^(-?)([\d,]+) د\
  for(var i=0;i<RULES.length;i++){var r=RULES[i];if(r[0].test(k)){var o=k.replace(r[0],r[1]).split('د.ع').join('IQD');return s.replace(k,o.replace(/[\u0600-\u06ff][\u0600-\u06ff ]*/g,function(w){return sub(w,'en')}))}}
  return s.split('د.ع').join('IQD')};
 })();
+/* blk20: أخطاء تأكيد الطلب تظهر بوضوح */
+(function(){var _n=next;next=function(){var was=cstep;_n();if(was===2&&cstep===2){var e=document.getElementById('err'),m=e&&e.textContent;if(m){toast(m);var id=/الاسم$/.test(m)?'f_name':/هاتف/.test(m)?'f_phone':/المحافظة/.test(m)?'f_gov':/المنطقة/.test(m)?(!cust.area?'f_area':'f_addr'):'';var f=id&&document.getElementById(id);if(f){f.style.outline='2px solid #C0392B';try{f.scrollIntoView({block:'center',behavior:'smooth'});f.focus({preventScroll:true})}catch(x){}setTimeout(function(){f.style.outline=''},2500)}}}}})();
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
