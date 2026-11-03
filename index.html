@@ -564,6 +564,16 @@ body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
 .sbg2{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);gap:10px;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding:4px 16px 6px}
 .sbt2{width:112px;height:84px;border:1px solid var(--line);background:var(--surface);border-radius:18px;display:grid;place-items:center;padding:8px;cursor:pointer;color:var(--fg);font:inherit}
 .sbt2 img{max-width:100%;max-height:100%;object-fit:contain}.sbt2 b{font-size:13px;text-align:center}
+/* v30 compact store category chips */
+.ctg{display:flex!important;grid-template-columns:none!important;gap:8px!important;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding:4px 16px 6px;-webkit-overflow-scrolling:touch}
+.ctg::-webkit-scrollbar{display:none}
+.ctg .ct{flex:none!important;min-width:0!important;display:inline-flex!important;flex-direction:row!important;align-items:center;gap:7px!important;padding:5px 12px 5px 6px!important;border-radius:999px!important;border:1.5px solid var(--line)!important;background:var(--surface)!important;color:var(--fg)!important;font-weight:600;white-space:nowrap}
+.ctg .ct .cti{width:30px!important;height:30px!important;border-radius:50%;display:grid;place-items:center;flex:none;overflow:hidden;background:hsl(var(--h) 70% 92%)!important}
+.ctg .ct .cti svg{height:22px!important;width:auto!important;filter:none!important}
+.ctg .ct b{font-size:13px!important;margin:0!important;min-height:0!important;display:inline!important;text-align:start}
+.ctg .ct small{display:none!important}
+.ctg .ct.on{border-color:var(--orange)!important;background:color-mix(in srgb,var(--orange) 10%,var(--surface))!important}
+.sv{padding:12px 14px!important}.sv .svi{transform:scale(.7);transform-origin:center}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
