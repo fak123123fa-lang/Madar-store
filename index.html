@@ -610,6 +610,7 @@ body.hascta .mini{bottom:150px}
 .cbg .pct{font-size:52px!important}
 .cbg{padding-inline:12px!important}
 .cbt{padding:11px 14px!important}.cbt b{font-size:17px!important}
+.scc .sci.imgc{padding:0!important;overflow:hidden}.scc .sci.imgc img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1810,6 +1811,17 @@ trTxt=function(s){var k=s.trim();if(!k)return s;var m=k.match(/^(-?)([\d,]+) د\
 })();
 /* blk20: أخطاء تأكيد الطلب تظهر بوضوح */
 (function(){var _n=next;next=function(){var was=cstep;_n();if(was===2&&cstep===2){var e=document.getElementById('err'),m=e&&e.textContent;if(m){toast(m);var id=/الاسم$/.test(m)?'f_name':/هاتف/.test(m)?'f_phone':/المحافظة/.test(m)?'f_gov':/المنطقة/.test(m)?(!cust.area?'f_area':'f_addr'):'';var f=id&&document.getElementById(id);if(f){f.style.outline='2px solid #C0392B';try{f.scrollIntoView({block:'center',behavior:'smooth'});f.focus({preventScroll:true})}catch(x){}setTimeout(function(){f.style.outline=''},2500)}}}}})();
+/* blk22: صور قسم التجميل */
+(function(){
+var BI=[['redglasses','جمالكِ يبدأ من هنا','أصلي 100%',''],['tomford','عطور فاخرة','اكتشف العطور','bperf'],['ysl','أحمر الشفاه','المكياج','bmake'],['makeup','المكياج','كل ما تحتاجينه','bmake'],['oriflame','عطور نسائية','عطور','bperf'],['montale','عطور','عطور','bperf'],['smoke','عطور','عطور','bperf'],['brushes','فرش المكياج','إكسسوارات','c1793532462922'],['coco','عطور','عطور','bperf']];
+var CI={bperf:'coco',bmake:'makeup',c1793532462922:'brushes'};
+var T={'جمالكِ يبدأ من هنا':['Your beauty starts here','جوانیت لێرەوە دەست پێدەکات'],'عطور فاخرة':['Luxury perfumes','بۆنی لوکس'],'اكتشف العطور':['Discover perfumes','بۆنەکان بدۆزەرەوە'],'أحمر الشفاه':['Lipstick','ڕوژی لێو'],'المكياج':['Makeup','ئاراستەکردن'],'كل ما تحتاجينه':['Everything you need','هەموو ئەوەی پێویستتە'],'عطور نسائية':["Women's perfumes",'بۆنی ئافرەتان'],'عطور':['Perfumes','بۆنەکان'],'فرش المكياج':['Makeup brushes','فڕچەی ئاراستە'],'إكسسوارات':['Accessories','ئامرازەکان']};
+for(var k in T){if(!EN[k])EN[k]=T[k][0];if(!KU[k])KU[k]=T[k][1]}
+EN['اكسسورات']=EN['اكسسورات']||'Accessories';KU['اكسسورات']=KU['اكسسورات']||'ئامرازەکان';
+SLIDES[0]={id:'beauty',img:'img/redglasses.webp',t:'مدار بيوتي',s:'جمالكِ يبدأ من هنا',go:'beauty'};
+function sl(b){var at=b[3]?'data-act="store" data-id="beauty" data-cat="'+b[3]+'"':'data-act="store" data-id="beauty"';return '<a class="hs" '+at+' style="background-image:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.7)),url(img/'+b[0]+'.webp)"><div class="hx"><h3>'+esc(b[1])+'</h3><p>'+esc(b[2])+'</p></div></a>'}
+var _sh=stHero;stHero=function(s){if(s.id!=='beauty')return _sh(s);var L=BI.map(sl).join('');return '<section class="heroS"><div class="hrail" id="hrail">'+L+'</div><div class="hdots" id="hdots">'+BI.map(function(_,i){return '<i'+(i===0?' class="on"':'')+'></i>'}).join('')+'</div></section>'};
+var _sc=stCats;stCats=function(s){var h=_sc(s);return h.replace(/<button class="scc" data-act="cat" data-id="([^"]+)"([^>]*)><span class="sci">[\s\S]*?<\/span>/g,function(m,id,r){return CI[id]?'<button class="scc" data-act="cat" data-id="'+id+'"'+r+'><span class="sci imgc"><img src="img/'+CI[id]+'_t.webp" alt="" loading="lazy"></span>':m})}})();
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
