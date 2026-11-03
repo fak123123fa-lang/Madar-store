@@ -605,17 +605,11 @@ body.sf .hmain,body.sf .ftabs,body.sf .addr{display:none!important}
 .mini{position:fixed;left:50%;bottom:104px;transform:translate(-50%,8px);z-index:90;background:#16a34a;color:#fff;font:700 12px 'Readex Pro',system-ui;padding:5px 12px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;white-space:nowrap}
 .mini.on{opacity:1;transform:translate(-50%,0)}
 body.hascta .mini{bottom:150px}
-
-.clist{display:grid;gap:10px;margin-top:12px}
-.crow{display:flex;align-items:center;gap:14px;width:100%;text-align:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px 14px;box-shadow:0 8px 20px -14px rgba(15,42,74,.5);cursor:pointer;color:var(--fg);transition:transform .15s,box-shadow .15s}
-.crow:active{transform:scale(.985)}
-.crow .ci{flex:none;width:56px;height:56px;border-radius:17px;display:grid;place-items:center;color:#fff;background:linear-gradient(145deg,var(--c),color-mix(in srgb,var(--c) 60%,#000));box-shadow:0 8px 16px -8px var(--c)}
-.crow .ct2{flex:1;min-width:0;display:grid;gap:3px}
-.crow .ct2 b{font-size:16px;font-weight:800;font-family:var(--f-display)}
-.crow .ct2 small{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.crow .go2{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--pri)}
-.crow.soon{opacity:.7}
-.crow .soonb{font-size:11px;font-weight:800;background:var(--orange);color:#1a0e02;border-radius:999px;padding:3px 9px;flex:none}
+.cbn{min-height:86px!important}
+.cbg svg{width:44px!important;height:44px!important}
+.cbg .pct{font-size:52px!important}
+.cbg{padding-inline:12px!important}
+.cbt{padding:11px 14px!important}.cbt b{font-size:17px!important}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1816,14 +1810,6 @@ trTxt=function(s){var k=s.trim();if(!k)return s;var m=k.match(/^(-?)([\d,]+) د\
 })();
 /* blk20: أخطاء تأكيد الطلب تظهر بوضوح */
 (function(){var _n=next;next=function(){var was=cstep;_n();if(was===2&&cstep===2){var e=document.getElementById('err'),m=e&&e.textContent;if(m){toast(m);var id=/الاسم$/.test(m)?'f_name':/هاتف/.test(m)?'f_phone':/المحافظة/.test(m)?'f_gov':/المنطقة/.test(m)?(!cust.area?'f_area':'f_addr'):'';var f=id&&document.getElementById(id);if(f){f.style.outline='2px solid #C0392B';try{f.scrollIntoView({block:'center',behavior:'smooth'});f.focus({preventScroll:true})}catch(x){}setTimeout(function(){f.style.outline=''},2500)}}}}})();
-/* blk21: قائمة الأقسام مرتبة */
-vCats=function(){var arr=lang==='en'?'back':'next';
- function row(c,icon,title,sub,attrs,soon){return '<button class="crow'+(soon?' soon':'')+'" '+(soon?'disabled':attrs)+' style="--c:'+c+'"><span class="ci">'+icon+'</span><span class="ct2"><b>'+esc(title)+'</b><small>'+esc(sub)+'</small></span>'+(soon?'<span class="soonb">قريباً</span>':'<span class="go2">'+ic(arr,18)+'</span>')+'</button>'}
- var n=live().filter(function(p){return off(p)>0}).length,h=row('#dc2626',ic('tag',28),'تخفيضات وعروض',n?n+' منتج بسعر مخفّض':'عروض قادمة','data-act="store" data-id="all" data-cat="offers"');
- S.stores.forEach(function(s){var cn=S.cats.filter(function(x){return x.store===s.id}).length,pn=live().filter(function(p){return p.store===s.id}).length;
-  h+=row(stColor(s),glyph(s.id,28),s.short||s.name,s.live?(s.tag||(pn+' منتج')):(s.tag||'متجر جديد'),'data-act="store" data-id="'+s.id+'"',!s.live)});
- h+=row('#0B1E3C',ic('building',28),'مدار للأعمال','أسعار جملة للمكاتب والشركات','data-act="gobiz"');
- return header()+'<div class="wrap"><div class="sh" style="margin-top:14px"><h2>الأقسام</h2></div><div class="clist">'+h+'</div></div>'};
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
