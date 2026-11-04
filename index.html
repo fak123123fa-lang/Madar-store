@@ -618,6 +618,19 @@ body.hascta .mini{bottom:150px}
 .ctt:has(.cttimg)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(0,0,0,.65));z-index:1}
 .ctt:has(.cttimg) b{position:relative;z-index:2;text-shadow:0 2px 6px rgba(0,0,0,.6)}
 .cic.pho{padding:0;overflow:hidden;border:3px solid #fff;box-shadow:0 8px 16px -8px rgba(0,0,0,.45)}.cic.pho img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.ntb{position:relative}.ntdot{position:absolute;top:-4px;inset-inline-end:-4px;min-width:18px;height:18px;border-radius:9px;background:#e8344a;color:#fff;font:700 11px/18px system-ui;text-align:center;padding:0 4px;border:2px solid var(--surface);font-style:normal;box-sizing:content-box}
+.ntc{display:flex;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:var(--surface);margin-bottom:10px;position:relative;overflow:hidden;--nc:#1e6bd6}
+.ntc::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:5px;background:var(--nc)}
+.nti{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--nc,#1e6bd6) 16%,transparent);font-size:22px}
+.ntc img.nim{display:block;width:100%;border-radius:12px;margin-top:8px;aspect-ratio:16/9;object-fit:cover}
+.ntc b{display:block;font-size:15px}.ntc p{margin:4px 0 0;color:var(--muted);line-height:1.7;font-size:14px}.ntc small{color:var(--muted);font-size:12px;white-space:nowrap}
+.k-offer{--nc:#ff7a00}.k-news{--nc:#1e6bd6}.k-alert{--nc:#e8344a}.k-gift{--nc:#8a3fd1}
+#ntbn{position:fixed;z-index:5000;top:calc(env(safe-area-inset-top,0px) + 10px);inset-inline:12px;max-width:520px;margin-inline:auto;display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:20px;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-inline-start:6px solid var(--nc,#1e6bd6);box-shadow:0 16px 40px rgba(8,20,45,.28);animation:ntin .5s cubic-bezier(.2,.9,.3,1.15) both;cursor:pointer}
+#ntbn b{display:block;font-size:15px}#ntbn p{margin:3px 0 0;font-size:13.5px;line-height:1.6;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#ntbn .x{flex:none;border:0;background:transparent;color:var(--muted);font-size:24px;line-height:1;padding:0 2px;cursor:pointer}
+@keyframes ntin{from{transform:translateY(-140%);opacity:0}to{transform:none;opacity:1}}
+#ntbn.out{animation:ntout .3s ease both}@keyframes ntout{to{transform:translateY(-140%);opacity:0}}
+@media (prefers-reduced-motion:reduce){#ntbn{animation:none}}
 </style>
 <div id="app"></div>
 <script id="state" type="application/json">{"store": {"homeGov": "القادسية", "feeLocal": 0, "feeOther": 0, "freeFrom": 0, "coupon": {"code": "", "pct": 0}, "whatsapp": "9647869863405", "announce": "", "heroTitle": "", "heroSub": "", "returnPolicy": "", "usdRate": 1500}, "stores": [], "cats": [], "brands": [], "products": []}</script>
@@ -1856,6 +1869,24 @@ var _at28=applyTheme;applyTheme=function(){_at28();try{applyExtra()}catch(e){}};
 var _hd28=header;header=function(){var h=_hd28.apply(this,arguments),r=rawS();if(r.app_name)h=h.replace('<b>MADAR</b>','<b>'+esc(r.app_name)+'</b>');if(r.app_tagline)h=h.replace('<small>مجموعة مدار التجارية</small>','<small>'+esc(r.app_tagline)+'</small>');return h};
 var _cw28=chWelcome;chWelcome=function(){var w=_cw28(),r=rawS(),t=lang==='en'?(r.chat_welcome_en||''):(r.chat_welcome||'');if(t)w.b=t;return w};
 var _wf28=waFab;waFab=function(){var h=_wf28.apply(this,arguments);if(rawS().chat_enabled===false)h=h.replace(/<button class="chfab"[\s\S]*?<\/button>/,'');return h};
+/* ===== blk29: notification center + popup banner ===== */
+IC.bell='<path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7"/><path d="M10 20a2 2 0 0 0 4 0"/>';
+var NT={list:[],seen:LS.get('nseen',0)},NTK={offer:'🔥',news:'📣',alert:'⚠️',gift:'🎁'};
+window.__NT=NT;window.__ntPopup=function(){ntPopup()};
+function ntTxt(a,k){return lang==='en'&&a[k+'_en']?a[k+'_en']:a[k]}
+function ntUnseen(){return NT.list.filter(function(a){return +new Date(a.created_at)>NT.seen}).length}
+function ntAgo(d){var s=(Date.now()-new Date(d))/1000;if(s<90)return lang==='en'?'now':'الآن';if(s<3600)return Math.round(s/60)+(lang==='en'?' min':' د');if(s<86400)return Math.round(s/3600)+(lang==='en'?' h':' ساعة');return Math.round(s/86400)+(lang==='en'?' d':' يوم')}
+function ntLoad(){if(!LIVE)return;api('announcements?select=*&active=eq.true&order=created_at.desc&limit=30').then(function(r){NT.list=(r||[]).filter(function(a){return !a.expires_at||new Date(a.expires_at)>new Date()});ntPopup();render()}).catch(function(){})}
+var _ll29=loadLive;loadLive=function(){var p=_ll29.apply(this,arguments);try{Promise.resolve(p).then(ntLoad)}catch(e){}return p};
+function ntPopup(){var a=NT.list.filter(function(x){return +new Date(x.created_at)>NT.seen})[0];if(!a||LS.get('npop',0)===a.id||document.getElementById('ntbn'))return;LS.set('npop',a.id);
+ var d=document.createElement('div');d.id='ntbn';d.className='k-'+a.kind;d.setAttribute('role','status');d.innerHTML='<span class="nti">'+(NTK[a.kind]||'📣')+'</span><div style="flex:1;min-width:0"><b>'+esc(ntTxt(a,'title'))+'</b>'+(a.body?'<p>'+esc(ntTxt(a,'body'))+'</p>':'')+'</div><button class="x" aria-label="إغلاق">×</button>';
+ function out(){d.classList.add('out');setTimeout(function(){d.remove()},320)}
+ d.onclick=function(e){if(e.target.closest('.x')){out();return}out();MYA.ntf()};document.body.appendChild(d);setTimeout(function(){if(d.parentNode)out()},9000)}
+function sheetNt(){var L=NT.list;return '<div class="grab"></div><div class="sbody"><button class="iconbtn xbtn" data-act="close" aria-label="إغلاق">'+ic('close',20)+'</button><h2 style="margin-block:8px 12px">'+(lang==='en'?'Notifications':'الإشعارات')+'</h2>'+(L.length?L.map(function(a,i){var lk=a.link?'<button class="btn sm" style="margin-top:8px" data-act="ntgo" data-i="'+i+'">'+(lang==='en'?'View':'عرض')+'</button>':'';return '<div class="ntc k-'+a.kind+'"><span class="nti">'+(NTK[a.kind]||'📣')+'</span><div style="flex:1;min-width:0"><div class="row" style="gap:6px"><b>'+esc(ntTxt(a,'title'))+'</b><small>'+ntAgo(a.created_at)+'</small></div>'+(a.body?'<p>'+esc(ntTxt(a,'body'))+'</p>':'')+(a.image?'<img class="nim" src="'+esc(a.image)+'" alt="" loading="lazy">':'')+lk+'</div></div>'}).join(''):'<div style="text-align:center;padding:30px 10px;color:var(--muted)"><div style="font-size:46px">🔔</div><p>'+(lang==='en'?'No notifications yet':'لا توجد إشعارات حالياً')+'</p></div>')+'</div>'}
+var _sh29=sheetHTML;sheetHTML=function(){if(sheet&&sheet.kind==='ntf'&&!form)return '<div class="over" data-act="ov"><div class="sheet" role="dialog" aria-modal="true">'+sheetNt()+'</div></div>';return _sh29()};
+Object.assign(window.MYA,{ntf:function(){sheet={kind:'ntf'};var m=NT.list.reduce(function(x,a){return Math.max(x,+new Date(a.created_at))},NT.seen);NT.seen=m;LS.set('nseen',m);render()},
+ ntgo:function(t){var a=NT.list[+t.i];if(!a||!a.link)return;var l=a.link;sheet=null;if(/^https?:\/\//i.test(l)){window.open(l,'_blank','noopener');render()}else if(l.indexOf('store:')===0){goStore(l.slice(6),'all',null)}else if(l.charAt(0)==='#'){location.hash=l;render()}else render()}});
+var _hd29=header;header=function(){var h=_hd29.apply(this,arguments),n=ntUnseen();return h.replace('<button class="iconbtn" data-act="focus"','<button class="iconbtn ntb" data-act="ntf" aria-label="'+(lang==='en'?'Notifications':'الإشعارات')+'">'+ic('bell',20)+(n?'<i class="ntdot">'+(n>9?'9+':n)+'</i>':'')+'</button><button class="iconbtn" data-act="focus"')};
 (function(){if(window.__spl)return;window.__spl=1;var d=document.createElement('div');d.id='splash';d.innerHTML=mascot(150,1)+'<b>MADAR</b><small>مجموعة مدار التجارية</small>';document.body.appendChild(d);setTimeout(function(){d.className='out'},1400);setTimeout(function(){d.remove()},2000)})();
 applyLang();applyTheme();render();if(LIVE)loadLive();if(LIVE&&'serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 if(!LIVE&&window.claude&&claude.use){claude.use('user').then(function(u){if(u&&u.isOwner()){isOwner=true;render()}}).catch(function(){})}
